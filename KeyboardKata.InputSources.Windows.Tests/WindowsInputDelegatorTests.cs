@@ -77,7 +77,7 @@ namespace KeyboardKata.InputSources.Windows.Tests
 
         private bool InputEquals(Input input, KeyCode keyCode, KeyPress keyPress)
         {
-            return input.Key == new WindowsKey(keyCode) && input.KeyPress == keyPress;
+            return input.Key == new Key((int)keyCode) && input.KeyPress == keyPress;
         }
     }
 }

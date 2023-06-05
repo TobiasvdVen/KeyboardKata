@@ -11,7 +11,7 @@
 
         public void NextPrompt()
         {
-            throw new NotImplementedException();
+            //_kata.Prompt(new KeyboardAction("Do something!", Stubs.Linear("Ctrl", "V")));
         }
 
         InputContinuation IInputProcessor.Process(Input input)

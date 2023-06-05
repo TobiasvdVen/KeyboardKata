@@ -15,12 +15,12 @@ namespace KeyboardKata.InputSources.Windows
 
         public void KeyDown(EventSourceEventArgs<KeyDown> keyDown)
         {
-            ProcessInput(new Input(new WindowsKey(keyDown.Data.Key), KeyPress.Down), keyDown);
+            ProcessInput(new Input(new Key(((int)keyDown.Data.Key)), KeyPress.Down), keyDown);
         }
 
         public void KeyUp(EventSourceEventArgs<KeyUp> keyUp)
         {
-            ProcessInput(new Input(new WindowsKey(keyUp.Data.Key), KeyPress.Up), keyUp);
+            ProcessInput(new Input(new Key(((int)keyUp.Data.Key)), KeyPress.Up), keyUp);
         }
 
         private void ProcessInput(Input input, EventSourceEventArgs eventSource)

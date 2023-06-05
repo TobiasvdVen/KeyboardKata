@@ -1,14 +1,12 @@
 ﻿namespace KeyboardKata.Domain.Tests.Helpers
 {
-    internal record TestKey : Key
+    public record TestKey : Key
     {
-        private readonly string _name;
-
-        public TestKey(string name)
+        public TestKey(string keyName) : base(keyName.GetHashCode())
         {
-            _name = name;
+            KeyName = keyName;
         }
 
-        public override string DisplayName => _name;
+        public string KeyName { get; }
     }
 }

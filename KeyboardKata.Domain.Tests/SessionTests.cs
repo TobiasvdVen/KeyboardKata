@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using KeyboardKata.Domain.Tests.Helpers;
+using Moq;
 using Xunit;
 
 namespace KeyboardKata.Domain.Tests
@@ -15,9 +16,13 @@ namespace KeyboardKata.Domain.Tests
         }
 
         [Fact]
-        public void GivenSingleInputSequence_WhenCorrectInput_ThenSuccess()
+        public void GivenNewSession_WhenNextPrompt_ThenKeyboardKataIsPrompted()
         {
+            KeyboardAction action = new("Do something!", Stubs.Linear("Ctrl", "V"));
 
+            _session.NextPrompt();
+
+            _kata.Verify(k => k.Prompt(action), Times.Once);
         }
     }
 }

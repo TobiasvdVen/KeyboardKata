@@ -1,7 +1,15 @@
 ﻿namespace KeyboardKata.Domain
 {
-    public abstract record Key : IEquatable<Key>
+    public record Key(int KeyCode)
     {
-        public abstract string DisplayName { get; }
+        public override string ToString()
+        {
+            return KeyCode.ToString();
+        }
+
+        public string ToString(IKeyCodeMapper mapper)
+        {
+            return mapper.Descriptor(KeyCode);
+        }
     }
 }
