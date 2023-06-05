@@ -17,7 +17,7 @@ namespace KeyboardKata.Domain.Tests
         {
             Pattern pattern = Stubs.Pattern(Stubs.Down("A"));
 
-            InputStream inputs = Stubs.Inputs(Stubs.Down("A"));
+            Input[] inputs = new[] { Stubs.Down("A") };
 
             Match match = _matcher.Evaluate(inputs, pattern);
 

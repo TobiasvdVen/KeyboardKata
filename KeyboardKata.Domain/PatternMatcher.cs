@@ -2,25 +2,20 @@
 {
     public class PatternMatcher
     {
-        public Match Evaluate(InputStream inputs, Pattern pattern)
+        public Match Evaluate(IEnumerable<Input> inputs, Pattern pattern)
         {
+            IEnumerator<Input> inputsEnumerator = inputs.GetEnumerator();
             IEnumerator<SubPattern> patterns = pattern.SubPatterns.GetEnumerator();
 
-            Input? next = null;
+            inputsEnumerator.MoveNext();
+            patterns.MoveNext();
 
-            do
+            if (inputsEnumerator.Current.Key == patterns.Current.KeyPress)
             {
-                next = inputs.Next();
-
-                if (patterns.Current.KeyPress == next.Key)
-                {
-                    return Match.Full;
-                }
-                patterns.Current
+                return Match.Full;
             }
-            while (next != null);
 
-            throw new NotImplementedException();
+            return Match.None;
         }
     }
 }

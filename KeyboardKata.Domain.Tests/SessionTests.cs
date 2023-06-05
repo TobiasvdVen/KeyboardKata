@@ -18,7 +18,7 @@ namespace KeyboardKata.Domain.Tests
         [Fact]
         public void GivenNewSession_WhenNextPrompt_ThenKeyboardKataIsPrompted()
         {
-            KeyboardAction action = new("Do something!", Stubs.Linear("Ctrl", "V"));
+            KeyboardAction action = new("Do something!", Stubs.Pattern(Stubs.Down("A")));
 
             _session.NextPrompt();
 

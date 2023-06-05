@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain
 {
-    public record KeyboardAction(string Prompt, Sequence Sequence)
+    public record KeyboardAction(string Prompt, Pattern Pattern)
     {
     }
 }

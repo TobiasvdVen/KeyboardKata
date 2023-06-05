@@ -20,11 +20,6 @@ namespace KeyboardKata.Domain.Tests.Helpers
             return new Input(Key(key), KeyPress.Up);
         }
 
-        public static InputStream Inputs(params Input[] inputs)
-        {
-            return new InputStream(inputs);
-        }
-
         public static Pattern Pattern(params Input[] inputs)
         {
             List<SubPattern> subPatterns = new();
@@ -35,11 +30,6 @@ namespace KeyboardKata.Domain.Tests.Helpers
             }
 
             return new Pattern(subPatterns);
-        }
-
-        public static Sequence Linear(params string[] inputs)
-        {
-            return new Sequence(LinearInputs(inputs));
         }
 
         private static IEnumerable<Input> LinearInputs(params string[] inputs)
