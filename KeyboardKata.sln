@@ -9,14 +9,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Domain.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Cli", "KeyboardKata.Cli\KeyboardKata.Cli.csproj", "{E497622A-20D9-4767-93AD-B05E97F4383A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.InputSources.Windows", "KeyboardKata.Input.Windows\KeyboardKata.InputSources.Windows.csproj", "{C879CCA8-5891-4153-8B7D-1C4AE60A07BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Windows", "KeyboardKata.Windows\KeyboardKata.Windows.csproj", "{C879CCA8-5891-4153-8B7D-1C4AE60A07BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.InputSources.Windows.Tests", "KeyboardKata.InputSources.Windows.Tests\KeyboardKata.InputSources.Windows.Tests.csproj", "{BD7E3F60-AD71-4BAA-B96D-B65F9127CBDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Windows.Tests", "KeyboardKata.Windows.Tests\KeyboardKata.Windows.Tests.csproj", "{BD7E3F60-AD71-4BAA-B96D-B65F9127CBDB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C2A79E0-F773-4A39-938B-2C2453FDD00A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Service", "KeyboardKata.Service\KeyboardKata.Service.csproj", "{52A1FC07-0914-456C-B08D-E4B2567054BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{BD7E3F60-AD71-4BAA-B96D-B65F9127CBDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD7E3F60-AD71-4BAA-B96D-B65F9127CBDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD7E3F60-AD71-4BAA-B96D-B65F9127CBDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

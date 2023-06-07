@@ -19,7 +19,7 @@
 
         public InputContinuation Process(Input input)
         {
-            throw new NotImplementedException();
+            return InputContinuation.Safe;
         }
     }
 }

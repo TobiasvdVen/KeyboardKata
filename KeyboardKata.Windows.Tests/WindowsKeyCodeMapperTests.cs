@@ -2,7 +2,7 @@
 using WindowsInput.Events;
 using Xunit;
 
-namespace KeyboardKata.InputSources.Windows.Tests
+namespace KeyboardKata.Windows.Tests
 {
     public class WindowsKeyCodeMapperTests
     {

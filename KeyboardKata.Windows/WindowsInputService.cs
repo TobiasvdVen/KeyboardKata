@@ -4,7 +4,7 @@ using WindowsInput;
 using WindowsInput.Events;
 using WindowsInput.Events.Sources;
 
-namespace KeyboardKata.InputSources.Windows
+namespace KeyboardKata.Windows
 {
     public class WindowsInputService : IHostedService
     {
@@ -21,7 +21,7 @@ namespace KeyboardKata.InputSources.Windows
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("WindowsInputService starting.");
+            _logger.LogInformation($"{nameof(WindowsInputService)} starting.");
 
             _keyboard = Capture.Global.KeyboardAsync();
             _keyboard.KeyDown += OnKeyDown;
@@ -42,7 +42,7 @@ namespace KeyboardKata.InputSources.Windows
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("WindowsInputService stopped.");
+            _logger.LogInformation($"{nameof(WindowsInputService)} stopping.");
 
             if (_keyboard is not null)
             {

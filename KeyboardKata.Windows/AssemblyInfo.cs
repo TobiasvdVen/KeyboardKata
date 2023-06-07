@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM.
 
 [assembly: Guid("3000c7bf-8608-4bc7-ad18-e9c7389e3289")]
-[assembly: InternalsVisibleTo("KeyboardKata.InputSources.Windows.Tests")]
+[assembly: InternalsVisibleTo("KeyboardKata.Windows.Tests")]

@@ -5,7 +5,7 @@
     <HotSpotsWindowSplitterDistance>29.8958339691162%</HotSpotsWindowSplitterDistance>
     <MetricsTreeShowTestProjects>False</MetricsTreeShowTestProjects>
     <ProcessingQueueSplitterDistance>50%</ProcessingQueueSplitterDistance>
-    <StatusIndicatorSplitterDistance>14.3939390182495%</StatusIndicatorSplitterDistance>
+    <StatusIndicatorSplitterDistance>14.2857151031494%</StatusIndicatorSplitterDistance>
     <TestsWindowMenuOptions>
       <VerticalSplitMenuOption>false</VerticalSplitMenuOption>
       <ShowPassingTestsMenuOption>false</ShowPassingTestsMenuOption>
@@ -13,6 +13,6 @@
       <ShowUnexecutedTestsMenuOption>true</ShowUnexecutedTestsMenuOption>
       <ShowIgnoredTestsMenuOption>false</ShowIgnoredTestsMenuOption>
     </TestsWindowMenuOptions>
-    <TestsWindowSplitterDistance>49.5426826477051%</TestsWindowSplitterDistance>
+    <TestsWindowSplitterDistance>49.2130088806152%</TestsWindowSplitterDistance>
   </Settings>
 </SolutionConfiguration>

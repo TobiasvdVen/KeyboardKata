@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KeyboardKata.Input.Windows\KeyboardKata.InputSources.Windows.csproj" />
+    <ProjectReference Include="..\KeyboardKata.Windows\KeyboardKata.Windows.csproj" />
   </ItemGroup>
 
 </Project>

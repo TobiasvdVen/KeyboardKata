@@ -1,9 +1,4 @@
 ﻿using KeyboardKata.Domain;
-
-#if WINDOWS
-using KeyboardKata.InputSources.Windows;
-#endif
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -16,40 +11,22 @@ namespace KeyboardKata.Cli
         {
             IHostBuilder builder = Host.CreateDefaultBuilder(args);
 
-            using IHost host = builder
-                .UseKeyboardKata()
-                .ConfigureServices(services =>
+            builder.AddKeyboardKata<CliKeyboardKata>();
+
+            builder.ConfigureServices(services =>
+            {
+                services.AddLogging(logging =>
                 {
-                    services.AddScoped<IKeyboardKata, CliKeyboardKata>();
+                    logging
+                        .AddConsole()
+                        .AddFilter("Microsoft", LogLevel.Warning)
+                        .SetMinimumLevel(LogLevel.Trace);
+                });
+            });
 
-                    ConfigureInputService(services);
-
-                    services.AddLogging(logging =>
-                    {
-                        logging.SetMinimumLevel(LogLevel.Trace).AddConsole();
-                    });
-                })
-                .Build();
+            using IHost host = builder.Build();
 
             await host.RunAsync();
-
-            using IServiceScope scope = host.Services.CreateScope();
-            IKataSession session = scope.ServiceProvider.GetRequiredService<IKataSession>();
-
-            session.NextPrompt();
-
-            await host.WaitForShutdownAsync();
-        }
-
-        static void ConfigureInputService(IServiceCollection services)
-        {
-#if WINDOWS
-            services.AddHostedService<WindowsInputService>();
-            services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
-            services.AddScoped<WindowsInputDelegator>();
-#else
-            throw new PlatformNotSupportedException();
-#endif
         }
     }
 }

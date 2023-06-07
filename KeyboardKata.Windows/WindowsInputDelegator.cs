@@ -2,7 +2,7 @@
 using WindowsInput.Events;
 using WindowsInput.Events.Sources;
 
-namespace KeyboardKata.InputSources.Windows
+namespace KeyboardKata.Windows
 {
     public class WindowsInputDelegator
     {

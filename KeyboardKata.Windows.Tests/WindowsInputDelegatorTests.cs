@@ -4,7 +4,7 @@ using WindowsInput.Events;
 using WindowsInput.Events.Sources;
 using Xunit;
 
-namespace KeyboardKata.InputSources.Windows.Tests
+namespace KeyboardKata.Windows.Tests
 {
     public class WindowsInputDelegatorTests
     {

@@ -1,7 +1,7 @@
 ﻿using KeyboardKata.Domain;
 using WindowsInput.Events;
 
-namespace KeyboardKata.InputSources.Windows
+namespace KeyboardKata.Windows
 {
     public class WindowsKeyCodeMapper : IKeyCodeMapper
     {

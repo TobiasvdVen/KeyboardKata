@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain
 {
-    internal class ExampleKeyboardActionProvider : IKeyboardActionProvider
+    public class ExampleKeyboardActionProvider : IKeyboardActionProvider
     {
         private readonly IKeyCodeMapper _keyCodeMapper;
 
