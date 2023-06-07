@@ -1,6 +1,12 @@
 ﻿<SolutionConfiguration>
   <Settings>
     <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>KeyboardKata.Cli\KeyboardKata.Cli.csproj:net7.0</Value>
+      <Value>KeyboardKata.Cli\KeyboardKata.Cli.csproj:net7.0-windows</Value>
+      <Value>WindowsInputService.cs:KeyboardKata.Input.Windows\KeyboardKata.InputSources.Windows.csproj</Value>
+      <Value>Hosting.cs:KeyboardKata.Domain\KeyboardKata.Domain.csproj</Value>
+    </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
 </SolutionConfiguration>
