@@ -1,4 +1,5 @@
 using KeyboardKata.Domain;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using WindowsInput.Events;
 using WindowsInput.Events.Sources;
@@ -14,7 +15,7 @@ namespace KeyboardKata.Windows.Tests
         public WindowsInputDelegatorTests()
         {
             _inputProcessor = new Mock<IInputProcessor>(MockBehavior.Strict);
-            _inputDelegator = new WindowsInputDelegator(_inputProcessor.Object);
+            _inputDelegator = new WindowsInputDelegator(_inputProcessor.Object, new NullLogger<WindowsInputDelegator>());
         }
 
         [Fact]

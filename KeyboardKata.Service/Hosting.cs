@@ -16,24 +16,25 @@ namespace KeyboardKata.Domain
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
-                services.AddScoped<IKeyboardKata, TKeyboardKata>();
+                services.AddSingleton<IKeyboardKata, TKeyboardKata>();
 
-                services.AddScoped<IKataSession, Session>();
-                services.AddScoped<IInputProcessor, Session>();
-                services.AddScoped<IKeyboardActionProvider, ExampleKeyboardActionProvider>();
+                services.AddSingleton<Session>();
+                services.AddSingleton<IKataSession, Session>(s => s.GetRequiredService<Session>());
+                services.AddSingleton<IInputProcessor, Session>(s => s.GetRequiredService<Session>());
+                services.AddSingleton<IKeyboardActionProvider, ExampleKeyboardActionProvider>();
                 services.AddSingleton<ILogger>(NullLogger.Instance);
-
 
 #if WINDOWS
                 services.AddHostedService<WindowsInputService>();
                 services.AddHostedService<KeyboardKataService>();
 
                 services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
-                services.AddScoped<WindowsInputDelegator>();
+                services.AddSingleton<WindowsInputDelegator>();
 #else
                 throw new PlatformNotSupportedException();
 #endif
             });
+
             return hostBuilder;
         }
     }

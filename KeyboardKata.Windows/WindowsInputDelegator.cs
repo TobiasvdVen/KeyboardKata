@@ -1,4 +1,5 @@
 ﻿using KeyboardKata.Domain;
+using Microsoft.Extensions.Logging;
 using WindowsInput.Events;
 using WindowsInput.Events.Sources;
 
@@ -7,10 +8,12 @@ namespace KeyboardKata.Windows
     public class WindowsInputDelegator
     {
         private readonly IInputProcessor _processor;
+        private readonly ILogger<WindowsInputDelegator> _logger;
 
-        public WindowsInputDelegator(IInputProcessor processor)
+        public WindowsInputDelegator(IInputProcessor processor, ILogger<WindowsInputDelegator> logger)
         {
             _processor = processor;
+            _logger = logger;
         }
 
         public void KeyDown(EventSourceEventArgs<KeyDown> keyDown)
@@ -25,6 +28,8 @@ namespace KeyboardKata.Windows
 
         private void ProcessInput(Input input, EventSourceEventArgs eventSource)
         {
+            _logger.LogTrace($"ProcessInput: {input}");
+
             InputContinuation continuation = _processor.Process(input);
 
             eventSource.Next_Hook_Enabled = continuation == InputContinuation.Safe;

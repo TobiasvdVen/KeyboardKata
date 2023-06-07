@@ -11,9 +11,9 @@
 
         public KeyboardAction GetKeyboardAction()
         {
-            return new KeyboardAction("Copy something!", new Pattern(new List<SubPattern>()
+            return new KeyboardAction("Type the letter \"C\"!", new Pattern(new List<SubPattern>()
             {
-                new SubPattern(_keyCodeMapper.Key("C"), new List<Key>() { _keyCodeMapper.Key("LControl") })
+                new SubPattern(_keyCodeMapper.Key("C"), Enumerable.Empty<Key>())
             }));
         }
     }

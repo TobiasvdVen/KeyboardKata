@@ -20,7 +20,7 @@ namespace KeyboardKata.Cli
                     logging
                         .AddConsole()
                         .AddFilter("Microsoft", LogLevel.Warning)
-                        .SetMinimumLevel(LogLevel.Trace);
+                        .SetMinimumLevel(LogLevel.Warning);
                 });
             });
 

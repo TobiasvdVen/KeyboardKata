@@ -21,7 +21,7 @@ namespace KeyboardKata.Cli
 
         public void Success(KeyboardAction action)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("You did it!");
         }
     }
 }
