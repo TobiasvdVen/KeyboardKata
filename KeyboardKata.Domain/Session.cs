@@ -3,18 +3,21 @@
     public class Session : IKataSession, IInputProcessor
     {
         private readonly IKeyboardKata _kata;
+        private readonly IKeyboardActionProvider _keyboardActionProvider;
 
-        public Session(IKeyboardKata kata)
+        public Session(IKeyboardKata kata, IKeyboardActionProvider keyboardActionProvider)
         {
             _kata = kata;
+            _keyboardActionProvider = keyboardActionProvider;
         }
 
         public void NextPrompt()
         {
-            //_kata.Prompt(new KeyboardAction("Do something!", Stubs.Linear("Ctrl", "V")));
+            KeyboardAction next = _keyboardActionProvider.GetKeyboardAction();
+            _kata.Prompt(next);
         }
 
-        InputContinuation IInputProcessor.Process(Input input)
+        public InputContinuation Process(Input input)
         {
             throw new NotImplementedException();
         }

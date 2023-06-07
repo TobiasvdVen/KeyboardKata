@@ -16,34 +16,37 @@ namespace KeyboardKata.Cli
         {
             IHostBuilder builder = Host.CreateDefaultBuilder(args);
 
-            IHost host = builder
+            using IHost host = builder
                 .UseKeyboardKata()
                 .ConfigureServices(services =>
                 {
+                    services.AddScoped<IKeyboardKata, CliKeyboardKata>();
+
                     ConfigureInputService(services);
 
                     services.AddLogging(logging =>
                     {
                         logging.SetMinimumLevel(LogLevel.Trace).AddConsole();
                     });
-
                 })
                 .Build();
 
-            Task program = host.RunAsync();
+            await host.RunAsync();
 
             using IServiceScope scope = host.Services.CreateScope();
             IKataSession session = scope.ServiceProvider.GetRequiredService<IKataSession>();
 
             session.NextPrompt();
 
-            await program;
+            await host.WaitForShutdownAsync();
         }
 
         static void ConfigureInputService(IServiceCollection services)
         {
 #if WINDOWS
             services.AddHostedService<WindowsInputService>();
+            services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
+            services.AddScoped<WindowsInputDelegator>();
 #else
             throw new PlatformNotSupportedException();
 #endif

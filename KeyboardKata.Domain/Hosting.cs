@@ -11,6 +11,7 @@ namespace KeyboardKata.Domain
             {
                 services.AddScoped<IKataSession, Session>();
                 services.AddScoped<IInputProcessor, Session>();
+                services.AddScoped<IKeyboardActionProvider, ExampleKeyboardActionProvider>();
                 //services.AddSingleton<ILogger>(NullLogger.Instance);
             });
 

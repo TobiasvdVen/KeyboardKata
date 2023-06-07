@@ -33,34 +33,11 @@ namespace KeyboardKata.InputSources.Windows
         private void OnKeyDown(object? sender, EventSourceEventArgs<KeyDown> e)
         {
             _delegator.KeyDown(e);
-            //if (e.Data is null)
-            //{
-            //    return;
-            //}
-
-            //if (e.Data.Key == KeyCode.LWin)
-            //{
-            //    e.Next_Hook_Enabled = false;
-            //}
-
-            //_logger.LogDebug("{key} pressed.", e.Data.Key);
         }
 
         private void OnKeyUp(object? sender, EventSourceEventArgs<KeyUp> e)
         {
             _delegator.KeyUp(e);
-
-            //if (e.Data is null)
-            //{
-            //    return;
-            //}
-
-            //if (e.Data.Key == KeyCode.LWin)
-            //{
-            //    e.Next_Hook_Enabled = false;
-            //}
-
-            //_logger.LogDebug("{key} released.", e.Data.Key);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
