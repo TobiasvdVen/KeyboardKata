@@ -6,6 +6,10 @@
       <Value>KeyboardKata.Cli\KeyboardKata.Cli.csproj:net7.0-windows</Value>
       <Value>WindowsInputService.cs:KeyboardKata.Input.Windows\KeyboardKata.Windows.csproj</Value>
       <Value>Hosting.cs:KeyboardKata.Domain\KeyboardKata.Domain.csproj</Value>
+      <Value>KeyboardKata.Service\KeyboardKata.Service.csproj:net7.0</Value>
+      <Value>KeyboardKata.Service\KeyboardKata.Service.csproj:net7.0-windows</Value>
+      <Value>WindowsInputService.cs:KeyboardKata.Windows\KeyboardKata.Windows.csproj</Value>
+      <Value>ExampleKeyboardActionProvider.cs:KeyboardKata.Domain\KeyboardKata.Domain.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>

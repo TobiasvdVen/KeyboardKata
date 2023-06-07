@@ -27,12 +27,12 @@ namespace KeyboardKata.Domain
         {
             if (CurrentAction == null)
             {
-                _logger.LogTrace($"No current action!");
+                _logger.LogWarning($"No current action!");
 
                 return InputContinuation.Safe;
             }
 
-            _logger.LogTrace($"Processing {input}");
+            _logger.LogDebug($"Processing {input}");
 
             bool keyMatches = input.Key == CurrentAction?.Pattern.SubPatterns.First().KeyPress;
 
