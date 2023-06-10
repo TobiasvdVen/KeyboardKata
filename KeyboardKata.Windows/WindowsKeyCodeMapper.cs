@@ -12,12 +12,14 @@ namespace KeyboardKata.Windows
 
         public string Descriptor(int keyCode)
         {
-            throw new NotImplementedException();
+            KeyCode windowsKeyCode = (KeyCode)keyCode;
+
+            return Descriptor(windowsKeyCode);
         }
 
         public string Descriptor(Key key)
         {
-            throw new NotImplementedException();
+            return Descriptor(key.KeyCode);
         }
 
         public Key Key(int keyCode)
@@ -30,6 +32,11 @@ namespace KeyboardKata.Windows
             int keyCode = (int)Enum.Parse<KeyCode>(descriptor);
 
             return Key(keyCode);
+        }
+
+        public Key Key(KeyCode keyCode)
+        {
+            return Key((int)keyCode);
         }
     }
 }
