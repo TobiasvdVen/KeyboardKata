@@ -10,5 +10,10 @@
 	<ItemGroup>
 		<PackageReference Include="Vanara.PInvoke.User32" Version="3.4.15" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\KeyboardKata.Trainer.ViewModels.Design\KeyboardKata.Trainer.ViewModels.Design.csproj" />
+	  <ProjectReference Include="..\KeyboardKata.Trainer.ViewModels\KeyboardKata.Trainer.ViewModels.csproj" />
+	</ItemGroup>
 	
 </Project>

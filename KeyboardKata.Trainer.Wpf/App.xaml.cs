@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using KeyboardKata.Trainer.ViewModels;
+using System.Windows;
 using System.Windows.Interop;
 using Vanara.PInvoke;
 
@@ -8,7 +9,11 @@ namespace KeyboardKata.Wpf
     {
         public void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow = new MainWindow();
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(
+                    new TrainerViewModel("Test prompt!"))
+            };
 
             MainWindow.Show();
 

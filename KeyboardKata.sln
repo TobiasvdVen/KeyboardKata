@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.ViewModels
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.Maui", "KeyboardKata.App.Maui\KeyboardKata.App.Maui.csproj", "{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Trainer.ViewModels.Design", "KeyboardKata.Trainer.ViewModels.Design\KeyboardKata.Trainer.ViewModels.Design.csproj", "{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
