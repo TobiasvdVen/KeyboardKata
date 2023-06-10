@@ -2,14 +2,14 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace KeyboardKata.Service
+namespace KeyboardKata.Trainer
 {
-    public class KeyboardKataService : IHostedService
+    public class KeyboardKataTrainerService : IHostedService
     {
         private readonly IKataSession _session;
-        private readonly ILogger<KeyboardKataService> _logger;
+        private readonly ILogger<KeyboardKataTrainerService> _logger;
 
-        public KeyboardKataService(IKataSession session, ILogger<KeyboardKataService> logger)
+        public KeyboardKataTrainerService(IKataSession session, ILogger<KeyboardKataTrainerService> logger)
         {
             _session = session;
             _logger = logger;
@@ -17,7 +17,7 @@ namespace KeyboardKata.Service
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"{nameof(KeyboardKataService)} starting.");
+            _logger.LogInformation($"{nameof(KeyboardKataTrainerService)} starting.");
 
             _session.NextPrompt();
 
@@ -26,7 +26,7 @@ namespace KeyboardKata.Service
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"{nameof(KeyboardKataService)} stopping.");
+            _logger.LogInformation($"{nameof(KeyboardKataTrainerService)} stopping.");
 
             return Task.CompletedTask;
         }

@@ -2,13 +2,13 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using KeyboardKata.Service;
+using KeyboardKata.Domain;
 
 #if WINDOWS
 using KeyboardKata.Windows;
 #endif
 
-namespace KeyboardKata.Domain
+namespace KeyboardKata.Trainer
 {
     public static class Hosting
     {
@@ -26,7 +26,7 @@ namespace KeyboardKata.Domain
 
 #if WINDOWS
                 services.AddHostedService<WindowsInputService>();
-                services.AddHostedService<KeyboardKataService>();
+                services.AddHostedService<KeyboardKataTrainerService>();
 
                 services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
                 services.AddSingleton<WindowsInputDelegator>();

@@ -1,9 +1,8 @@
-﻿using KeyboardKata.Domain;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace KeyboardKata.Cli
+namespace KeyboardKata.Trainer.Cli
 {
     internal class Program
     {

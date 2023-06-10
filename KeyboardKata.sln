@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Domain", "Keyb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Domain.Tests", "KeyboardKata.Domain.Tests\KeyboardKata.Domain.Tests.csproj", "{7233E316-5BB7-4922-84B5-2981C66C9E7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Cli", "KeyboardKata.Cli\KeyboardKata.Cli.csproj", "{E497622A-20D9-4767-93AD-B05E97F4383A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Trainer.Cli", "KeyboardKata.Trainer.Cli\KeyboardKata.Trainer.Cli.csproj", "{E497622A-20D9-4767-93AD-B05E97F4383A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Windows", "KeyboardKata.Windows\KeyboardKata.Windows.csproj", "{C879CCA8-5891-4153-8B7D-1C4AE60A07BF}"
 EndProject
@@ -18,7 +18,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Service", "KeyboardKata.Service\KeyboardKata.Service.csproj", "{52A1FC07-0914-456C-B08D-E4B2567054BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Trainer", "KeyboardKata.Trainer\KeyboardKata.Trainer.csproj", "{52A1FC07-0914-456C-B08D-E4B2567054BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Trainer.Wpf", "KeyboardKata.Trainer.Wpf\KeyboardKata.Trainer.Wpf.csproj", "{BB8A7C74-843A-4CC1-BCDC-8B72D691DF6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Trainer.ViewModels", "KeyboardKata.Trainer.ViewModels\KeyboardKata.Trainer.ViewModels.csproj", "{5203F5EF-4ED4-40A9-9688-710D69F0C952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Trainer.ViewModels.Tests", "KeyboardKata.Trainer.ViewModels.Tests\KeyboardKata.Trainer.ViewModels.Tests.csproj", "{56C48C02-68A2-4617-8486-6498275F1D52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App", "KeyboardKata.App\KeyboardKata.App.csproj", "{2342E45A-A49D-4F03-996E-221BD0407EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.ViewModels", "KeyboardKata.App.ViewModels\KeyboardKata.App.ViewModels.csproj", "{92ED762E-252E-438F-97A6-3C5210B5B3ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.Maui", "KeyboardKata.App.Maui\KeyboardKata.App.Maui.csproj", "{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +62,32 @@ Global
 		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52A1FC07-0914-456C-B08D-E4B2567054BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8A7C74-843A-4CC1-BCDC-8B72D691DF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8A7C74-843A-4CC1-BCDC-8B72D691DF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8A7C74-843A-4CC1-BCDC-8B72D691DF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8A7C74-843A-4CC1-BCDC-8B72D691DF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5203F5EF-4ED4-40A9-9688-710D69F0C952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5203F5EF-4ED4-40A9-9688-710D69F0C952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5203F5EF-4ED4-40A9-9688-710D69F0C952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5203F5EF-4ED4-40A9-9688-710D69F0C952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C48C02-68A2-4617-8486-6498275F1D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C48C02-68A2-4617-8486-6498275F1D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C48C02-68A2-4617-8486-6498275F1D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C48C02-68A2-4617-8486-6498275F1D52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2342E45A-A49D-4F03-996E-221BD0407EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2342E45A-A49D-4F03-996E-221BD0407EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2342E45A-A49D-4F03-996E-221BD0407EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2342E45A-A49D-4F03-996E-221BD0407EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ED762E-252E-438F-97A6-3C5210B5B3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ED762E-252E-438F-97A6-3C5210B5B3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ED762E-252E-438F-97A6-3C5210B5B3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ED762E-252E-438F-97A6-3C5210B5B3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4369C53F-A329-4F0F-A9CC-20A85A11C5E2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

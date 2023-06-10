@@ -1,6 +1,6 @@
 ﻿using KeyboardKata.Domain;
 
-namespace KeyboardKata.Cli
+namespace KeyboardKata.Trainer.Cli
 {
     internal class CliKeyboardKata : IKeyboardKata
     {

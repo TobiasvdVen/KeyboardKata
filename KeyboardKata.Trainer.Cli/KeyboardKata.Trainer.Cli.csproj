@@ -12,7 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\KeyboardKata.Service\KeyboardKata.Service.csproj" />
+      <ProjectReference Include="..\KeyboardKata.Domain\KeyboardKata.Domain.csproj" />
+      <ProjectReference Include="..\KeyboardKata.Trainer\KeyboardKata.Trainer.csproj" />
     </ItemGroup>
 
 </Project>

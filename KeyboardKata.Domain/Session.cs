@@ -34,7 +34,7 @@ namespace KeyboardKata.Domain
 
             _logger.LogDebug($"Processing {input}");
 
-            bool keyMatches = input.Key == CurrentAction?.Pattern.SubPatterns.First().KeyPress;
+            bool keyMatches = input.Key == CurrentAction.Pattern.SubPatterns.First().KeyPress;
 
             if (keyMatches && input.KeyPress == KeyPress.Down)
             {
