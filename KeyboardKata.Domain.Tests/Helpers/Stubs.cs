@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace KeyboardKata.Domain.Tests.Helpers
 {
-    internal static class Stubs
+    public static class Stubs
     {
         public static Key Key(string key)
         {

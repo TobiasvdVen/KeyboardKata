@@ -1,12 +1,36 @@
-﻿namespace KeyboardKata.Trainer.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using KeyboardKata.Domain;
+
+namespace KeyboardKata.Trainer.ViewModels
 {
-    public class TrainerViewModel
+    public partial class TrainerViewModel : ObservableObject, IKeyboardKata
     {
-        public TrainerViewModel(string prompt)
+        [ObservableProperty]
+        private string _currentPrompt;
+
+        public TrainerViewModel(string initialPrompt)
         {
-            Prompt = prompt;
+            _currentPrompt = initialPrompt;
         }
 
-        public string Prompt { get; }
+        public void Failure(KeyboardAction action, IEnumerable<Key> actual)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Progress(KeyboardAction action, IEnumerable<Key> remaining)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Success(KeyboardAction action)
+        {
+            CurrentPrompt = "You did it!";
+        }
+
+        public void Prompt(KeyboardAction action)
+        {
+            CurrentPrompt = action.Prompt;
+        }
     }
 }

@@ -1,12 +1,15 @@
-﻿namespace KeyboardKata.Trainer.ViewModels
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace KeyboardKata.Trainer.ViewModels
 {
-    public class MainViewModel
+    public partial class MainViewModel : ObservableObject
     {
-        public TrainerViewModel TrainerViewModel { get; }
+        [ObservableProperty]
+        private TrainerViewModel _trainerViewModel;
 
         public MainViewModel(TrainerViewModel trainerViewModel)
         {
-            TrainerViewModel = trainerViewModel;
+            _trainerViewModel = trainerViewModel;
         }
     }
 }

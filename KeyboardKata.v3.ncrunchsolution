@@ -18,6 +18,8 @@
       <Value>KeyboardKata.Trainer.Cli\KeyboardKata.Trainer.Cli.csproj:net7.0-windows</Value>
       <Value>KeyboardKata.Trainer.Wpf\KeyboardKata.Trainer.Wpf.csproj</Value>
       <Value>KeyboardKata.Trainer.ViewModels.Design\KeyboardKata.Trainer.ViewModels.Design.csproj</Value>
+      <Value>KeyboardKata.Trainer\KeyboardKata.Trainer.csproj</Value>
+      <Value>KeyboardKata.Trainer.Cli\KeyboardKata.Trainer.Cli.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>

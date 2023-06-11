@@ -12,7 +12,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>KeyboardKata.App.Maui</ApplicationTitle>
+		<ApplicationTitle>Keyboard Kata</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.keyboardkata.app.maui</ApplicationId>
