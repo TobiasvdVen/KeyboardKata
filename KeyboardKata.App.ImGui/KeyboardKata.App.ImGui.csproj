@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ImGui.NET" Version="1.89.5.1" />
+		<PackageReference Include="Veldrid.ImGui" Version="5.72.0" />
+		<PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\KeyboardKata.App.ViewModels\KeyboardKata.App.ViewModels.csproj" />
+	  <ProjectReference Include="..\KeyboardKata.App\KeyboardKata.App.csproj" />
+	</ItemGroup>
+	
+</Project>
