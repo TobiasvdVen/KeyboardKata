@@ -7,7 +7,7 @@ namespace KeyboardKata.Domain.Tests
 {
     public class SessionTests
     {
-        private readonly Session _session;
+        private readonly SessionState _session;
         private readonly Mock<IKeyboardKata> _kata;
         private readonly Mock<IKeyboardActionProvider> _actionProvider;
 
@@ -15,7 +15,7 @@ namespace KeyboardKata.Domain.Tests
         {
             _kata = new Mock<IKeyboardKata>();
             _actionProvider = new Mock<IKeyboardActionProvider>();
-            _session = new Session(_kata.Object, _actionProvider.Object, new NullLogger<Session>());
+            _session = new SessionState(_kata.Object, _actionProvider.Object, new NullLogger<SessionState>());
         }
 
         [Fact]

@@ -2,13 +2,13 @@
 
 namespace KeyboardKata.Domain
 {
-    public class Session : IKataSession, IInputProcessor
+    public class SessionState : ISessionState, IInputProcessor
     {
         private readonly IKeyboardKata _kata;
         private readonly IKeyboardActionProvider _keyboardActionProvider;
-        private readonly ILogger<Session> _logger;
+        private readonly ILogger<SessionState> _logger;
 
-        public Session(IKeyboardKata kata, IKeyboardActionProvider keyboardActionProvider, ILogger<Session> logger)
+        public SessionState(IKeyboardKata kata, IKeyboardActionProvider keyboardActionProvider, ILogger<SessionState> logger)
         {
             _kata = kata;
             _keyboardActionProvider = keyboardActionProvider;

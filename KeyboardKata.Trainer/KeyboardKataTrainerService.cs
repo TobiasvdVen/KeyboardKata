@@ -6,10 +6,10 @@ namespace KeyboardKata.Trainer
 {
     public class KeyboardKataTrainerService : IHostedService
     {
-        private readonly IKataSession _session;
+        private readonly ISessionState _session;
         private readonly ILogger<KeyboardKataTrainerService> _logger;
 
-        public KeyboardKataTrainerService(IKataSession session, ILogger<KeyboardKataTrainerService> logger)
+        public KeyboardKataTrainerService(ISessionState session, ILogger<KeyboardKataTrainerService> logger)
         {
             _session = session;
             _logger = logger;

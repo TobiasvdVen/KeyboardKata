@@ -23,11 +23,11 @@ namespace KeyboardKata.Trainer
             {
                 services.AddSingleton<IKeyboardKata, TKeyboardKata>();
 
-                services.AddSingleton<Session>();
-                services.AddSingleton<IKataSession, Session>(s => s.GetRequiredService<Session>());
+                services.AddSingleton<SessionState>();
+                services.AddSingleton<ISessionState, SessionState>(s => s.GetRequiredService<SessionState>());
                 services.AddSingleton<IInputProcessor, QuitProcessor>(s => new QuitProcessor(
                     settings.QuitPattern,
-                    s.GetRequiredService<Session>(),
+                    s.GetRequiredService<SessionState>(),
                     s.GetRequiredService<IHostApplicationLifetime>()));
 
                 services.AddSingleton<IKeyboardActionProvider, ExampleKeyboardActionProvider>();

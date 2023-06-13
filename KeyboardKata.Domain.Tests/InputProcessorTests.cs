@@ -14,7 +14,7 @@ namespace KeyboardKata.Domain.Tests
         {
             _keyboardKata = new Mock<IKeyboardKata>();
             _keyboardActionProvider = new ExampleKeyboardActionProvider(new TestKeyCodeMapper());
-            _inputProcessor = new Session(_keyboardKata.Object, _keyboardActionProvider, new Mock<ILogger<Session>>().Object);
+            _inputProcessor = new SessionState(_keyboardKata.Object, _keyboardActionProvider, new Mock<ILogger<SessionState>>().Object);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain
 {
-    public interface IKataSession
+    public interface ISessionState
     {
         void NextPrompt();
     }
