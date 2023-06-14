@@ -5,6 +5,8 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+	<PublishSingleFile>true</PublishSingleFile>
+	<AssemblyName>Keyboard Kata Trainer</AssemblyName>
   </PropertyGroup>
 
 	<ItemGroup>

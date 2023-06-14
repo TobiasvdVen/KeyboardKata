@@ -5,6 +5,8 @@
 		<TargetFrameworks>net7.0-windows</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+		<PublishSingleFile>true</PublishSingleFile>
+		<AssemblyName>Keyboard Kata Trainer</AssemblyName>
 	</PropertyGroup>
 
     <ItemGroup>
