@@ -17,7 +17,7 @@ namespace KeyboardKata.Trainer
             return hostBuilder.AddKeyboardKata<TKeyboardKata>(BuildDefaultSettings());
         }
 
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, TrainerSettings settings) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings) where TKeyboardKata : class, IKeyboardKata
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
@@ -52,7 +52,7 @@ namespace KeyboardKata.Trainer
             return hostBuilder.AddKeyboardKata(BuildDefaultSettings(), keyboardKata);
         }
 
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, TrainerSettings settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
         {
             IHostBuilder builder = hostBuilder.AddKeyboardKata<TKeyboardKata>(settings);
 
@@ -64,11 +64,11 @@ namespace KeyboardKata.Trainer
             return builder;
         }
 
-        private static TrainerSettings BuildDefaultSettings()
+        private static KataSettings BuildDefaultSettings()
         {
 #if WINDOWS
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
-            TrainerSettings defaultSettings = new()
+            KataSettings defaultSettings = new()
             {
                 QuitPattern = new Pattern(
                     new SubPattern[] { new SubPattern(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), Enumerable.Empty<Key>()) })
