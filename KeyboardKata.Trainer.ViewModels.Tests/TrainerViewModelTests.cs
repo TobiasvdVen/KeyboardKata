@@ -1,4 +1,4 @@
-using KeyboardKata.Domain;
+using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.Tests.Helpers;
 using Xunit;
 

@@ -2,7 +2,8 @@
 
 namespace KeyboardKata.Domain.InputMatching
 {
-    public record SubPattern(Key KeyPress, IEnumerable<Key> Modifiers)
+    public interface IPattern
     {
+        Match Matches(IEnumerable<Input> inputs);
     }
 }

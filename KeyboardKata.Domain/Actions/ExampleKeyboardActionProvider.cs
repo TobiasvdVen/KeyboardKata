@@ -18,13 +18,13 @@ namespace KeyboardKata.Domain.Actions
         {
             KeyboardAction[] actions = new KeyboardAction[]
             {
-                new KeyboardAction("Type the letter \"C\"!", new Pattern(new List<SubPattern>()
+                new KeyboardAction("Type the letter \"C\"!", new ExactMatchPattern(new List<Input>()
                 {
-                    new SubPattern(_keyCodeMapper.Key("C"), Enumerable.Empty<Key>())
+                    new Input(_keyCodeMapper.Key("C"), KeyPress.Down)
                 })),
-                new KeyboardAction("Type the letter \"K\"!", new Pattern(new List<SubPattern>()
+                new KeyboardAction("Type the letter \"K\"!", new ExactMatchPattern(new List<Input>()
                 {
-                    new SubPattern(_keyCodeMapper.Key("K"), Enumerable.Empty<Key>())
+                    new Input(_keyCodeMapper.Key("K"), KeyPress.Down)
                 }))
             };
 

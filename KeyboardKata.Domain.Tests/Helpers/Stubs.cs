@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using KeyboardKata.Domain.InputMatching;
+﻿using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.InputProcessing;
+using System.Collections.Generic;
 
 namespace KeyboardKata.Domain.Tests.Helpers
 {
@@ -22,16 +21,9 @@ namespace KeyboardKata.Domain.Tests.Helpers
             return new Input(Key(key), KeyPress.Up);
         }
 
-        public static Pattern Pattern(params Input[] inputs)
+        public static ExactMatchPattern Pattern(params Input[] inputs)
         {
-            List<SubPattern> subPatterns = new();
-
-            foreach (Input input in inputs)
-            {
-                subPatterns.Add(new SubPattern(input.Key, Enumerable.Empty<Key>()));
-            }
-
-            return new Pattern(subPatterns);
+            return new ExactMatchPattern(inputs);
         }
 
         private static IEnumerable<Input> LinearInputs(params string[] inputs)

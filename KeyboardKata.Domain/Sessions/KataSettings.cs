@@ -4,6 +4,6 @@ namespace KeyboardKata.Domain.Sessions
 {
     public class KataSettings
     {
-        public required Pattern QuitPattern { get; init; }
+        public required IPattern QuitPattern { get; init; }
     }
 }

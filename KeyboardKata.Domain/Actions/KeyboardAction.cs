@@ -2,7 +2,7 @@
 
 namespace KeyboardKata.Domain.Actions
 {
-    public record KeyboardAction(string Prompt, Pattern Pattern)
+    public record KeyboardAction(string Prompt, IPattern Pattern)
     {
     }
 }

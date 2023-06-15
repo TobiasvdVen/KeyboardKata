@@ -1,4 +1,5 @@
 ﻿using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.InputProcessing;
 using Microsoft.Extensions.Logging;
 
@@ -36,13 +37,13 @@ namespace KeyboardKata.Domain.Sessions
 
             _logger.LogDebug($"Processing {input}");
 
-            bool keyMatches = input.Key == CurrentAction.Pattern.SubPatterns.First().KeyPress;
+            bool keyMatches = CurrentAction.Pattern.Matches(new List<Input>() { input }) == Match.Full;
 
-            if (keyMatches && input.KeyPress == KeyPress.Down)
+            if (keyMatches)
             {
                 _kata.Success(CurrentAction);
             }
-            else if (keyMatches && input.KeyPress == KeyPress.Up)
+            else if (input.KeyPress == KeyPress.Up)
             {
                 NextPrompt();
             }

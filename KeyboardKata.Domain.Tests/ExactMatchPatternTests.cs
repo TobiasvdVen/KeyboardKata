@@ -5,23 +5,16 @@ using Xunit;
 
 namespace KeyboardKata.Domain.Tests
 {
-    public class PatternMatcherTests
+    public class ExactMatchPatternTests
     {
-        private readonly PatternMatcher _matcher;
-
-        public PatternMatcherTests()
-        {
-            _matcher = new PatternMatcher();
-        }
-
         [Fact]
         public void GivenSingleKeyPattern_WhenSingleKeyInput_ThenMatch()
         {
-            Pattern pattern = Stubs.Pattern(Stubs.Down("A"));
+            ExactMatchPattern pattern = Stubs.Pattern(Stubs.Down("A"));
 
             Input[] inputs = new[] { Stubs.Down("A") };
 
-            Match match = _matcher.Evaluate(inputs, pattern);
+            Match match = pattern.Matches(inputs);
 
             Assert.Equal(Match.Full, match);
         }

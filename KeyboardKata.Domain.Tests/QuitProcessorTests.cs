@@ -21,7 +21,7 @@ namespace KeyboardKata.Domain.Tests
         [Fact]
         public void GivenSingleKeyQuitAction_WhenProcessed_ThenQuit()
         {
-            Pattern quitPattern = Stubs.Pattern(Stubs.Down("Q"));
+            ExactMatchPattern quitPattern = Stubs.Pattern(Stubs.Down("Q"));
             QuitProcessor quitProcessor = new(quitPattern, _inputProcessor.Object, _applicationLifetime.Object);
 
             quitProcessor.Process(Stubs.Down("Q"));
@@ -33,7 +33,7 @@ namespace KeyboardKata.Domain.Tests
         [Fact]
         public void GivenSingleKeyQuitAction_WhenUnrelatedInputProcessed_ThenForwardInput()
         {
-            Pattern quitPattern = Stubs.Pattern(Stubs.Down("Q"));
+            ExactMatchPattern quitPattern = Stubs.Pattern(Stubs.Down("Q"));
             QuitProcessor quitProcessor = new(quitPattern, _inputProcessor.Object, _applicationLifetime.Object);
 
             quitProcessor.Process(Stubs.Down("P"));

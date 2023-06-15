@@ -5,11 +5,11 @@ namespace KeyboardKata.Domain.InputProcessing
 {
     public class QuitProcessor : IInputProcessor
     {
-        private readonly Pattern _quitPattern;
+        private readonly IPattern _quitPattern;
         private readonly IInputProcessor _inputProcessor;
         private readonly IHostApplicationLifetime _applicationLifetime;
 
-        public QuitProcessor(Pattern quitPattern, IInputProcessor inputProcessor, IHostApplicationLifetime applicationLifetime)
+        public QuitProcessor(IPattern quitPattern, IInputProcessor inputProcessor, IHostApplicationLifetime applicationLifetime)
         {
             _quitPattern = quitPattern;
             _inputProcessor = inputProcessor;
@@ -18,9 +18,7 @@ namespace KeyboardKata.Domain.InputProcessing
 
         public InputContinuation Process(Input input)
         {
-            PatternMatcher matcher = new();
-
-            if (matcher.Evaluate(new List<Input>() { input }, _quitPattern) == Match.Full)
+            if (_quitPattern.Matches(new List<Input>() { input }) == Match.Full)
             {
                 _applicationLifetime.StopApplication();
 

@@ -74,8 +74,8 @@ namespace KeyboardKata.Trainer
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
             KataSettings defaultSettings = new()
             {
-                QuitPattern = new Pattern(
-                    new SubPattern[] { new SubPattern(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), Enumerable.Empty<Key>()) })
+                QuitPattern = new ExactMatchPattern(
+                    new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) })
             };
 
             return defaultSettings;
