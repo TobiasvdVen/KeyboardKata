@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputProcessing;
+using Microsoft.Extensions.Logging;
 
-namespace KeyboardKata.Domain
+namespace KeyboardKata.Domain.Sessions
 {
     public class SessionState : ISessionState, IInputProcessor
     {

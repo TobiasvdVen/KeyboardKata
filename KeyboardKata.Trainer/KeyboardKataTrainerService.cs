@@ -1,4 +1,4 @@
-﻿using KeyboardKata.Domain;
+﻿using KeyboardKata.Domain.Sessions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 

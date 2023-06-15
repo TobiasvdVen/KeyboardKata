@@ -3,6 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Sessions;
+using KeyboardKata.Domain.InputMatching;
 
 #if WINDOWS
 using KeyboardKata.Windows;

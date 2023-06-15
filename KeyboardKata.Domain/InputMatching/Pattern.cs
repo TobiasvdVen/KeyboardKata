@@ -1,4 +1,4 @@
-﻿namespace KeyboardKata.Domain
+﻿namespace KeyboardKata.Domain.InputMatching
 {
     public record Pattern(IEnumerable<SubPattern> SubPatterns)
     {

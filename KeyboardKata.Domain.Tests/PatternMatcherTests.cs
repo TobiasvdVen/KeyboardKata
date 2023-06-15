@@ -1,4 +1,6 @@
-﻿using KeyboardKata.Domain.Tests.Helpers;
+﻿using KeyboardKata.Domain.InputMatching;
+using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Tests.Helpers;
 using Xunit;
 
 namespace KeyboardKata.Domain.Tests

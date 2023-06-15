@@ -1,4 +1,4 @@
-using KeyboardKata.Domain;
+using KeyboardKata.Domain.InputProcessing;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using WindowsInput.Events;

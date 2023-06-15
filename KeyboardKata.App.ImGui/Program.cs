@@ -1,6 +1,6 @@
 ﻿using ImGuiNET;
 using KeyboardKata.App.ViewModels;
-using KeyboardKata.Domain;
+using KeyboardKata.Domain.Sessions;
 using System.Diagnostics;
 using System.Numerics;
 using Veldrid;

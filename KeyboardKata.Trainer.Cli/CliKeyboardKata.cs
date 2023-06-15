@@ -1,4 +1,6 @@
 ﻿using KeyboardKata.Domain;
+using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputProcessing;
 
 namespace KeyboardKata.Trainer.Cli
 {

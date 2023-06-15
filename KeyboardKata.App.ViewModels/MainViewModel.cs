@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using KeyboardKata.Domain;
+using KeyboardKata.Domain.Sessions;
 
 namespace KeyboardKata.App.ViewModels
 {

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using KeyboardKata.Domain.InputMatching;
+using Microsoft.Extensions.Hosting;
 
-namespace KeyboardKata.Domain
+namespace KeyboardKata.Domain.InputProcessing
 {
     public class QuitProcessor : IInputProcessor
     {

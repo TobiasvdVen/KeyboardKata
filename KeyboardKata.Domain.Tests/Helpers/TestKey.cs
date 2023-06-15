@@ -1,4 +1,6 @@
-﻿namespace KeyboardKata.Domain.Tests.Helpers
+﻿using KeyboardKata.Domain.InputProcessing;
+
+namespace KeyboardKata.Domain.Tests.Helpers
 {
     public record TestKey : Key
     {

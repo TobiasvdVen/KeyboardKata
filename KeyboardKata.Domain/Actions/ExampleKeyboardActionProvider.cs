@@ -1,4 +1,7 @@
-﻿namespace KeyboardKata.Domain
+﻿using KeyboardKata.Domain.InputMatching;
+using KeyboardKata.Domain.InputProcessing;
+
+namespace KeyboardKata.Domain.Actions
 {
     public class ExampleKeyboardActionProvider : IKeyboardActionProvider
     {
@@ -25,7 +28,7 @@
                 }))
             };
 
-            return actions[(_counter++) % actions.Length];
+            return actions[_counter++ % actions.Length];
         }
     }
 }

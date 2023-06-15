@@ -1,4 +1,4 @@
-﻿namespace KeyboardKata.Domain
+﻿namespace KeyboardKata.Domain.Sessions
 {
     public interface ISessionState
     {

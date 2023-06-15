@@ -1,4 +1,4 @@
-﻿using KeyboardKata.Domain;
+﻿using KeyboardKata.Domain.InputProcessing;
 using WindowsInput.Events;
 
 namespace KeyboardKata.Windows

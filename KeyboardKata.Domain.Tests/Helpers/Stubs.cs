@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using KeyboardKata.Domain.InputMatching;
+using KeyboardKata.Domain.InputProcessing;
 
 namespace KeyboardKata.Domain.Tests.Helpers
 {

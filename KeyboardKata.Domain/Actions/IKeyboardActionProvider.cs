@@ -1,4 +1,4 @@
-﻿namespace KeyboardKata.Domain
+﻿namespace KeyboardKata.Domain.Actions
 {
     public interface IKeyboardActionProvider
     {

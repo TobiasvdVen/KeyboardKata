@@ -1,4 +1,7 @@
-﻿using KeyboardKata.Domain.Tests.Helpers;
+﻿using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Sessions;
+using KeyboardKata.Domain.Tests.Helpers;
 using Microsoft.Extensions.Logging;
 using Moq;
 

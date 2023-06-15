@@ -1,4 +1,6 @@
-﻿namespace KeyboardKata.Domain
+﻿using KeyboardKata.Domain.InputProcessing;
+
+namespace KeyboardKata.Domain.InputMatching
 {
     public class PatternMatcher
     {

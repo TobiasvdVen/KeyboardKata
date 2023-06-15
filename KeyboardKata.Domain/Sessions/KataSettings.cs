@@ -1,4 +1,6 @@
-﻿namespace KeyboardKata.Domain
+﻿using KeyboardKata.Domain.InputMatching;
+
+namespace KeyboardKata.Domain.Sessions
 {
     public class KataSettings
     {

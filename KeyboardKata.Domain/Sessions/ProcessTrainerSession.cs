@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace KeyboardKata.Domain
+namespace KeyboardKata.Domain.Sessions
 {
     public sealed class ProcessTrainerSession : ITrainerSession, IDisposable
     {
