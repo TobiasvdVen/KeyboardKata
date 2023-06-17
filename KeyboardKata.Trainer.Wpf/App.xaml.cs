@@ -27,7 +27,7 @@ namespace KeyboardKata.Wpf
 
             IHostBuilder builder = Host.CreateDefaultBuilder(e.Args);
 
-            builder.AddKeyboardKata(trainerViewModel);
+            builder.AddKeyboardKataTrainer(trainerViewModel);
 
             _host = builder.Build();
 

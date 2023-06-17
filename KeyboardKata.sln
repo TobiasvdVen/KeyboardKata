@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{1DE957F4-3B3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trainer", "Trainer", "{0BEE30B5-6115-4018-92B0-2501A5D059C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.ImGui.Windows", "KeyboardKata.App.ImGui.Windows\KeyboardKata.App.ImGui.Windows.csproj", "{520C13B7-75E4-4877-827D-05D2BF093834}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,10 @@ Global
 		{60081AA6-9E3C-438F-90F7-7411BB9AB207}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60081AA6-9E3C-438F-90F7-7411BB9AB207}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60081AA6-9E3C-438F-90F7-7411BB9AB207}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520C13B7-75E4-4877-827D-05D2BF093834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520C13B7-75E4-4877-827D-05D2BF093834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520C13B7-75E4-4877-827D-05D2BF093834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520C13B7-75E4-4877-827D-05D2BF093834}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +118,7 @@ Global
 		{92ED762E-252E-438F-97A6-3C5210B5B3ED} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
 		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B} = {0BEE30B5-6115-4018-92B0-2501A5D059C6}
 		{60081AA6-9E3C-438F-90F7-7411BB9AB207} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
+		{520C13B7-75E4-4877-827D-05D2BF093834} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66C4E67D-4FBE-4687-92C0-807078ABA3C8}

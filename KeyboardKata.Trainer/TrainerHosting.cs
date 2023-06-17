@@ -14,14 +14,14 @@ using KeyboardKata.Windows;
 
 namespace KeyboardKata.Trainer
 {
-    public static class Hosting
+    public static class TrainerHosting
     {
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder) where TKeyboardKata : class, IKeyboardKata
         {
-            return hostBuilder.AddKeyboardKata<TKeyboardKata>(BuildDefaultSettings());
+            return hostBuilder.AddKeyboardKataTrainer<TKeyboardKata>(BuildDefaultSettings());
         }
 
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings) where TKeyboardKata : class, IKeyboardKata
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
@@ -51,14 +51,14 @@ namespace KeyboardKata.Trainer
             return hostBuilder;
         }
 
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
         {
-            return hostBuilder.AddKeyboardKata(BuildDefaultSettings(), keyboardKata);
+            return hostBuilder.AddKeyboardKataTrainer(BuildDefaultSettings(), keyboardKata);
         }
 
-        public static IHostBuilder AddKeyboardKata<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
         {
-            IHostBuilder builder = hostBuilder.AddKeyboardKata<TKeyboardKata>(settings);
+            IHostBuilder builder = hostBuilder.AddKeyboardKataTrainer<TKeyboardKata>(settings);
 
             builder.ConfigureServices((context, services) =>
             {

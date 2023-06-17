@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KeyboardKata.App.ImGui": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Dev"
+      }
+    }
+  }
+}
