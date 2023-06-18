@@ -1,5 +1,4 @@
-﻿using KeyboardKata.Domain.InputMatching;
-using KeyboardKata.Domain.InputProcessing;
+﻿using KeyboardKata.Domain.InputProcessing;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -22,12 +21,12 @@ namespace KeyboardKata.Domain.Sessions.Configuration
                 {
                     AllowTrailingCommas = true,
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-
                 };
 
                 //options.Converters.Add(new TypeDiscriminatorJsonConverter<IPattern>(_keyCodeMapper));
-                options.Converters.Add(new JsonDiscriminatorConverter<IPattern>("_type"));
+                //options.Converters.Add(new JsonDiscriminatorConverter<IPattern>("_type"));
                 options.Converters.Add(new JsonStringEnumConverter());
+                options.Converters.Add(new KeyJsonConverter(_keyCodeMapper));
                 options.AddContext<SessionConfigurationJsonContext>();
 
                 SessionConfiguration? configuration = JsonSerializer.Deserialize<SessionConfiguration>(stream, options);

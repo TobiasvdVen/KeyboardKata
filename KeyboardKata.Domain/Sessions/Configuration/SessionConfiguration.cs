@@ -4,11 +4,11 @@ namespace KeyboardKata.Domain.Sessions.Configuration
 {
     public class SessionConfiguration
     {
-        public SessionConfiguration(IPattern quitPattern)
+        public SessionConfiguration(ExactMatchPattern quitPattern)
         {
             QuitPattern = quitPattern;
         }
 
-        public IPattern QuitPattern { get; }
+        public ExactMatchPattern QuitPattern { get; }
     }
 }

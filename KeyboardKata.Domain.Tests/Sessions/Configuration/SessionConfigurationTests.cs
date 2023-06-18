@@ -18,7 +18,6 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
                 """
                 {
                     "quitPattern": {
-                        "_type": "ExactMatch",
                         "pattern": [
                             {
                                 "key": {

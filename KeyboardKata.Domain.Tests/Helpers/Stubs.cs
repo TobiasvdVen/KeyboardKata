@@ -1,4 +1,5 @@
-﻿using KeyboardKata.Domain.InputMatching;
+﻿using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.InputProcessing;
 using System.Collections.Generic;
 
@@ -24,6 +25,11 @@ namespace KeyboardKata.Domain.Tests.Helpers
         public static ExactMatchPattern Pattern(params Input[] inputs)
         {
             return new ExactMatchPattern(inputs);
+        }
+
+        public static KeyboardAction Action(string prompt, params Input[] inputs)
+        {
+            return new KeyboardAction(prompt, Pattern(inputs));
         }
 
         private static IEnumerable<Input> LinearInputs(params string[] inputs)
