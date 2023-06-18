@@ -7,6 +7,7 @@ using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
 using KeyboardKata.Domain.InputMatching;
+using KeyboardKata.Domain.Sessions.Configuration;
 
 #if WINDOWS
 using KeyboardKata.Windows;
@@ -21,7 +22,7 @@ namespace KeyboardKata.Trainer
             return hostBuilder.AddKeyboardKataTrainer<TKeyboardKata>(BuildDefaultSettings());
         }
 
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, SessionConfiguration settings) where TKeyboardKata : class, IKeyboardKata
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
@@ -34,7 +35,7 @@ namespace KeyboardKata.Trainer
                     s.GetRequiredService<SessionState>(),
                     s.GetRequiredService<IHostApplicationLifetime>()));
 
-                services.AddSingleton<IKeyboardActionProvider, ExampleKeyboardActionProvider>();
+                services.AddSingleton<IKeyboardActionSource, ExampleKeyboardActionProvider>();
                 services.AddSingleton<ILogger>(NullLogger.Instance);
 
 #if WINDOWS
@@ -56,7 +57,7 @@ namespace KeyboardKata.Trainer
             return hostBuilder.AddKeyboardKataTrainer(BuildDefaultSettings(), keyboardKata);
         }
 
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, KataSettings settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, SessionConfiguration settings, TKeyboardKata keyboardKata) where TKeyboardKata : class, IKeyboardKata
         {
             IHostBuilder builder = hostBuilder.AddKeyboardKataTrainer<TKeyboardKata>(settings);
 
@@ -68,15 +69,14 @@ namespace KeyboardKata.Trainer
             return builder;
         }
 
-        private static KataSettings BuildDefaultSettings()
+        private static SessionConfiguration BuildDefaultSettings()
         {
 #if WINDOWS
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
-            KataSettings defaultSettings = new()
-            {
-                QuitPattern = new ExactMatchPattern(
+            SessionConfiguration defaultSettings = new(
+                quitPattern: new ExactMatchPattern(
                     new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) })
-            };
+            );
 
             return defaultSettings;
 #else

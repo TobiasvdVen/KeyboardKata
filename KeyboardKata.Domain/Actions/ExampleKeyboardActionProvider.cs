@@ -3,7 +3,7 @@ using KeyboardKata.Domain.InputProcessing;
 
 namespace KeyboardKata.Domain.Actions
 {
-    public class ExampleKeyboardActionProvider : IKeyboardActionProvider
+    public class ExampleKeyboardActionProvider : IKeyboardActionSource
     {
         private readonly IKeyCodeMapper _keyCodeMapper;
 

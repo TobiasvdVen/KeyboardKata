@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain.Actions
 {
-    public interface IKeyboardActionProvider
+    public interface IKeyboardActionSource
     {
         KeyboardAction GetKeyboardAction();
     }

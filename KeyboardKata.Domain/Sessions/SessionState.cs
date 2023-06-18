@@ -8,10 +8,10 @@ namespace KeyboardKata.Domain.Sessions
     public class SessionState : ISessionState, IInputProcessor
     {
         private readonly IKeyboardKata _kata;
-        private readonly IKeyboardActionProvider _keyboardActionProvider;
+        private readonly IKeyboardActionSource _keyboardActionProvider;
         private readonly ILogger<SessionState> _logger;
 
-        public SessionState(IKeyboardKata kata, IKeyboardActionProvider keyboardActionProvider, ILogger<SessionState> logger)
+        public SessionState(IKeyboardKata kata, IKeyboardActionSource keyboardActionProvider, ILogger<SessionState> logger)
         {
             _kata = kata;
             _keyboardActionProvider = keyboardActionProvider;

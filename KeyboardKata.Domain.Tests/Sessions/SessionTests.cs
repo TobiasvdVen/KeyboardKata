@@ -11,12 +11,12 @@ namespace KeyboardKata.Domain.Tests
     {
         private readonly SessionState _session;
         private readonly Mock<IKeyboardKata> _kata;
-        private readonly Mock<IKeyboardActionProvider> _actionProvider;
+        private readonly Mock<IKeyboardActionSource> _actionProvider;
 
         public SessionTests()
         {
             _kata = new Mock<IKeyboardKata>();
-            _actionProvider = new Mock<IKeyboardActionProvider>();
+            _actionProvider = new Mock<IKeyboardActionSource>();
             _session = new SessionState(_kata.Object, _actionProvider.Object, new NullLogger<SessionState>());
         }
 

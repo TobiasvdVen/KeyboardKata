@@ -10,7 +10,7 @@ namespace KeyboardKata.Domain.Tests
     public class InputProcessorTests
     {
         private readonly Mock<IKeyboardKata> _keyboardKata;
-        private readonly IKeyboardActionProvider _keyboardActionProvider;
+        private readonly IKeyboardActionSource _keyboardActionProvider;
         private readonly IInputProcessor _inputProcessor;
 
         public InputProcessorTests()

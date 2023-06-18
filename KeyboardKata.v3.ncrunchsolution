@@ -20,6 +20,8 @@
       <Value>KeyboardKata.Trainer.ViewModels.Design\KeyboardKata.Trainer.ViewModels.Design.csproj</Value>
       <Value>KeyboardKata.Trainer\KeyboardKata.Trainer.csproj</Value>
       <Value>KeyboardKata.Trainer.Cli\KeyboardKata.Trainer.Cli.csproj</Value>
+      <Value>KeyboardKata.App.ImGui\KeyboardKata.App.ImGui.csproj</Value>
+      <Value>KeyboardKata.App.ImGui.Windows\KeyboardKata.App.ImGui.Windows.csproj</Value>
     </MetricsExclusionList>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
