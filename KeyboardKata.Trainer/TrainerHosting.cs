@@ -8,6 +8,7 @@ using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
 using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.Sessions.Configuration;
+using KeyboardKata.Domain.Actions.Sources;
 
 #if WINDOWS
 using KeyboardKata.Windows;
@@ -35,7 +36,7 @@ namespace KeyboardKata.Trainer
                     s.GetRequiredService<SessionState>(),
                     s.GetRequiredService<IHostApplicationLifetime>()));
 
-                services.AddSingleton<IKeyboardActionSource, ExampleKeyboardActionProvider>();
+                services.AddSingleton<IKeyboardActionSource>(settings.Actions);
                 services.AddSingleton<ILogger>(NullLogger.Instance);
 
 #if WINDOWS
@@ -75,7 +76,19 @@ namespace KeyboardKata.Trainer
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
             SessionConfiguration defaultSettings = new(
                 quitPattern: new ExactMatchPattern(
-                    new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) })
+                    new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) }),
+
+                new LinearKeyboardActionSource(new KeyboardAction[]
+                {
+                    new KeyboardAction("Type the letter \"C\"!", new ExactMatchPattern(new List<Input>()
+                    {
+                        new Input(windowsKeyCodeMapper.Key("C"), KeyPress.Down)
+                    })),
+                    new KeyboardAction("Type the letter \"K\"!", new ExactMatchPattern(new List<Input>()
+                    {
+                        new Input(windowsKeyCodeMapper.Key("K"), KeyPress.Down)
+                    }))
+                })
             );
 
             return defaultSettings;

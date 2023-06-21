@@ -2,6 +2,6 @@
 {
     public interface IKeyboardActionSource
     {
-        KeyboardAction GetKeyboardAction();
+        KeyboardAction? GetKeyboardAction();
     }
 }

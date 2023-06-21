@@ -2,6 +2,7 @@
 using KeyboardKata.Domain;
 using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Sessions;
 
 namespace KeyboardKata.Trainer.ViewModels
 {
@@ -33,6 +34,11 @@ namespace KeyboardKata.Trainer.ViewModels
         public void Prompt(KeyboardAction action)
         {
             CurrentPrompt = action.Prompt;
+        }
+
+        public void Finish(SessionResult result)
+        {
+            CurrentPrompt = "All done!";
         }
     }
 }

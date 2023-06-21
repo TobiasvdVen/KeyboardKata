@@ -1,6 +1,7 @@
 ﻿using KeyboardKata.Domain;
 using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Sessions;
 
 namespace KeyboardKata.Trainer.Cli
 {
@@ -9,6 +10,11 @@ namespace KeyboardKata.Trainer.Cli
         public void Failure(KeyboardAction action, IEnumerable<Key> actual)
         {
             throw new NotImplementedException();
+        }
+
+        public void Finish(SessionResult result)
+        {
+            Console.WriteLine("All done!");
         }
 
         public void Progress(KeyboardAction action, IEnumerable<Key> remaining)

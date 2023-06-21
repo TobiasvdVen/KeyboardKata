@@ -26,7 +26,13 @@ namespace KeyboardKata.Domain.Sessions
             }
 
             _process.EnableRaisingEvents = true;
+            _process.OutputDataReceived += _process_OutputDataReceived;
             _process.Exited += Process_Exited;
+        }
+
+        private void _process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine("Hey");
         }
 
         public void End()

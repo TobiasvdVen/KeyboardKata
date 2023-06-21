@@ -8,13 +8,13 @@ namespace KeyboardKata.Domain.Sessions
     public class SessionState : ISessionState, IInputProcessor
     {
         private readonly IKeyboardKata _kata;
-        private readonly IKeyboardActionSource _keyboardActionProvider;
+        private readonly IKeyboardActionSource _actionSource;
         private readonly ILogger<SessionState> _logger;
 
-        public SessionState(IKeyboardKata kata, IKeyboardActionSource keyboardActionProvider, ILogger<SessionState> logger)
+        public SessionState(IKeyboardKata kata, IKeyboardActionSource actionSource, ILogger<SessionState> logger)
         {
             _kata = kata;
-            _keyboardActionProvider = keyboardActionProvider;
+            _actionSource = actionSource;
             _logger = logger;
         }
 
@@ -22,8 +22,16 @@ namespace KeyboardKata.Domain.Sessions
 
         public void NextPrompt()
         {
-            CurrentAction = _keyboardActionProvider.GetKeyboardAction();
-            _kata.Prompt(CurrentAction);
+            CurrentAction = _actionSource.GetKeyboardAction();
+
+            if (CurrentAction is not null)
+            {
+                _kata.Prompt(CurrentAction);
+            }
+            else
+            {
+                _kata.Finish(new SessionResult());
+            }
         }
 
         public InputContinuation Process(Input input)
