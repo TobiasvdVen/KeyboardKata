@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text.Json;
 
 namespace KeyboardKata.Domain.Sessions
 {
@@ -6,6 +7,8 @@ namespace KeyboardKata.Domain.Sessions
     {
         private readonly ProcessStartInfo _startInfo;
         private Process? _process;
+
+        private SessionResult? _result;
 
         public ProcessTrainerSession(string trainerPath)
         {
@@ -42,7 +45,7 @@ namespace KeyboardKata.Domain.Sessions
                 _process.Exited -= Process_Exited;
                 _process = null;
 
-                Ended?.Invoke(new SessionResult());
+                Ended?.Invoke(_result);
             }
         }
 
@@ -53,7 +56,22 @@ namespace KeyboardKata.Domain.Sessions
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Debug.WriteLine(e.Data);
+            if (e.Data is string content)
+            {
+                JsonSerializerOptions options = new()
+                {
+                    AllowTrailingCommas = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                };
+
+                options.AddContext<SessionResultJsonContext>();
+
+                try
+                {
+                    _result = JsonSerializer.Deserialize<SessionResult>(content, options);
+                }
+                catch (Exception) { }
+            }
         }
 
         private void Process_Exited(object? sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain.Sessions
 {
-    public delegate void TrainerSessionEnded(SessionResult result);
+    public delegate void TrainerSessionEnded(SessionResult? result);
 
     public interface ITrainerSession
     {

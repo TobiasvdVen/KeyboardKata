@@ -3,6 +3,7 @@ using KeyboardKata.Domain;
 using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
+using System.Text.Json;
 
 namespace KeyboardKata.Trainer.ViewModels
 {
@@ -39,6 +40,17 @@ namespace KeyboardKata.Trainer.ViewModels
         public void Finish(SessionResult result)
         {
             CurrentPrompt = "All done!";
+
+            JsonSerializerOptions options = new()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+            options.AddContext<SessionResultJsonContext>();
+
+            string json = JsonSerializer.Serialize(result, options);
+
+            Console.WriteLine(json);
         }
     }
 }

@@ -63,9 +63,21 @@ namespace KeyboardKata.App.ImGui
                     Gui.SetNextWindowSize(new Vector2(800, 600));
                     Gui.Begin(" ", ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
 
-                    if (Gui.Button("Start"))
+                    if (_mainViewModel.SessionResult is null)
                     {
-                        _mainViewModel.StartTrainer();
+                        if (Gui.Button("Start"))
+                        {
+                            _mainViewModel.StartTrainer();
+                        }
+                    }
+                    else
+                    {
+                        Gui.Text($"You made {_mainViewModel.SessionResult.Mistakes} mistakes!");
+
+                        if (Gui.Button("Ok"))
+                        {
+                            _mainViewModel.Reset();
+                        }
                     }
 
                     Gui.End();

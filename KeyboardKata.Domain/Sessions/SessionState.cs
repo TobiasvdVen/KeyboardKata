@@ -16,9 +16,13 @@ namespace KeyboardKata.Domain.Sessions
             _kata = kata;
             _actionSource = actionSource;
             _logger = logger;
+
+            Mistakes = 0;
         }
 
         public KeyboardAction? CurrentAction { get; private set; }
+
+        public int Mistakes { get; private set; }
 
         public void NextPrompt()
         {
@@ -30,7 +34,7 @@ namespace KeyboardKata.Domain.Sessions
             }
             else
             {
-                _kata.Finish(new SessionResult());
+                _kata.Finish(new SessionResult(Mistakes));
             }
         }
 
@@ -54,6 +58,10 @@ namespace KeyboardKata.Domain.Sessions
             else if (input.KeyPress == KeyPress.Up)
             {
                 NextPrompt();
+            }
+            else
+            {
+                ++Mistakes;
             }
 
             return InputContinuation.Safe;

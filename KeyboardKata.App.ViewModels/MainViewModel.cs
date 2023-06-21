@@ -11,6 +11,9 @@ namespace KeyboardKata.App.ViewModels
         [ObservableProperty]
         private bool _trainerActive;
 
+        [ObservableProperty]
+        private SessionResult? _sessionResult;
+
         public MainViewModel(ITrainerSession trainerSession)
         {
             _trainerSession = trainerSession;
@@ -30,9 +33,16 @@ namespace KeyboardKata.App.ViewModels
             _trainerSession.End();
         }
 
-        private void TrainerSession_Ended(SessionResult result)
+        [RelayCommand]
+        public void Reset()
+        {
+            SessionResult = null;
+        }
+
+        private void TrainerSession_Ended(SessionResult? result)
         {
             TrainerActive = false;
+            SessionResult = result;
         }
     }
 }
