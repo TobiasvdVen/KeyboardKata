@@ -7,9 +7,12 @@ namespace KeyboardKata.Domain.Sessions
         private readonly ProcessStartInfo _startInfo;
         private Process? _process;
 
-        public ProcessTrainerSession(ProcessStartInfo startInfo)
+        public ProcessTrainerSession(string trainerPath)
         {
-            _startInfo = startInfo;
+            _startInfo = new ProcessStartInfo(trainerPath)
+            {
+                RedirectStandardOutput = true
+            };
         }
 
         public event TrainerSessionEnded? Ended;
@@ -26,13 +29,10 @@ namespace KeyboardKata.Domain.Sessions
             }
 
             _process.EnableRaisingEvents = true;
-            _process.OutputDataReceived += _process_OutputDataReceived;
+            _process.OutputDataReceived += OutputDataReceived;
             _process.Exited += Process_Exited;
-        }
 
-        private void _process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Console.WriteLine("Hey");
+            _process.BeginOutputReadLine();
         }
 
         public void End()
@@ -49,6 +49,11 @@ namespace KeyboardKata.Domain.Sessions
         public void Dispose()
         {
             _process?.Dispose();
+        }
+
+        private void OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Debug.WriteLine(e.Data);
         }
 
         private void Process_Exited(object? sender, EventArgs e)

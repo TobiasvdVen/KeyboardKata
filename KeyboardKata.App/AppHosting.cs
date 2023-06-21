@@ -3,7 +3,6 @@ using KeyboardKata.Domain.Sessions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
 
 namespace KeyboardKata.App
 {
@@ -20,7 +19,7 @@ namespace KeyboardKata.App
                     IConfiguration configuration = s.GetRequiredService<IConfiguration>();
                     string trainerPath = configuration["AppSettings:TrainerPath"] ?? throw new Exception("Trainer path not configured in AppSettings:TrainerPath!");
 
-                    return new ProcessTrainerSession(new ProcessStartInfo(trainerPath));
+                    return new ProcessTrainerSession(trainerPath);
                 });
             });
 
