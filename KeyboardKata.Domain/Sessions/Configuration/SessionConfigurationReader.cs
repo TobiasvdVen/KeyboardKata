@@ -1,6 +1,8 @@
 ﻿using KeyboardKata.Domain.InputProcessing;
+using KeyboardKata.Domain.Sessions.Configuration.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Text.Json.Polymorphism;
 
 namespace KeyboardKata.Domain.Sessions.Configuration
 {
@@ -17,19 +19,14 @@ namespace KeyboardKata.Domain.Sessions.Configuration
         {
             try
             {
-                JsonSerializerOptions options = new()
+                JsonSerializerOptions options = BuildJsonOptions();
+
+                JsonSerializerOptions nullableSafeOptions = BuildJsonOptions(o =>
                 {
-                    AllowTrailingCommas = true,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                };
+                    o.Converters.Add(new NullableJsonConverter(options));
+                });
 
-                //options.Converters.Add(new TypeDiscriminatorJsonConverter<IPattern>(_keyCodeMapper));
-                //options.Converters.Add(new JsonDiscriminatorConverter<IPattern>("_type"));
-                options.Converters.Add(new JsonStringEnumConverter());
-                options.Converters.Add(new KeyJsonConverter(_keyCodeMapper));
-                options.AddContext<SessionConfigurationJsonContext>();
-
-                SessionConfiguration? configuration = JsonSerializer.Deserialize<SessionConfiguration>(stream, options);
+                SessionConfiguration? configuration = JsonSerializer.Deserialize<SessionConfiguration>(stream, nullableSafeOptions);
 
                 return configuration ?? throw new JsonException("Deserialize returned null.");
             }
@@ -37,6 +34,29 @@ namespace KeyboardKata.Domain.Sessions.Configuration
             {
                 throw new ArgumentException("Failed to deserialize a valid session configuration.", ex);
             }
+        }
+
+        private JsonSerializerOptions BuildJsonOptions(Action<JsonSerializerOptions>? customize = null)
+        {
+            JsonSerializerOptions options = new()
+            {
+                AllowTrailingCommas = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+
+            options.Converters.Add(new JsonStringEnumConverter());
+            options.Converters.Add(new KeyJsonConverter(_keyCodeMapper));
+            options.Converters.Add(new KeyboardActionPoolJsonConverter());
+            options.Converters.Add(new PatternJsonConverter());
+
+            if (customize is not null)
+            {
+                customize(options);
+            }
+
+            options.AddContext<SessionConfigurationJsonContext>();
+
+            return options;
         }
     }
 }

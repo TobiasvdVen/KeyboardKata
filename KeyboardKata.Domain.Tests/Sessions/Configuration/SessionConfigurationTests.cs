@@ -1,4 +1,5 @@
-﻿using KeyboardKata.Domain.InputMatching;
+﻿using KeyboardKata.Domain.Actions.Pools;
+using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions.Configuration;
 using KeyboardKata.Domain.Tests.Helpers;
@@ -12,18 +13,35 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
     public class SessionConfigurationTests
     {
         [Fact]
-        public void GivenStream_WhenRead_ReturnSessionConfiguration()
+        public void GivenMinimal_WhenRead_ReturnSessionConfiguration()
         {
             string configuration =
                 """
                 {
-                    "quitPattern": {
-                        "pattern": [
+                    "quitPattern": 
+                    {
+                        "inputs": 
+                        [
                             {
-                                "key": {
+                                "key": 
+                                {
                                     "keyCode": "Q",
                                 },
                                 "keyPress": "Down"
+                            }
+                        ]
+                    },
+                    "actions": 
+                    {
+                        "prompt": "Do something.",
+                        "inputs": 
+                        [
+                            {
+                                "key": 
+                                {
+                                    "keyCode": "A",
+                                },
+                                "keyPress": "Down",
                             }
                         ]
                     }
@@ -34,7 +52,9 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
 
             TestKey q = new("Q");
             ExactMatchPattern quitPattern = Assert.IsType<ExactMatchPattern>(result.QuitPattern);
-            Assert.Single(quitPattern.Pattern, i => i.Key == q && i.KeyPress == KeyPress.Down);
+            Assert.Single(quitPattern.Inputs, i => i.Key == q && i.KeyPress == KeyPress.Down);
+            SingleActionPool singleAction = Assert.IsType<SingleActionPool>(result.Actions);
+            Assert.Equal("Do something.", singleAction.Action.Prompt);
         }
 
         [Fact]
@@ -43,6 +63,31 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
             string invalid = "";
 
             Assert.Throws<ArgumentException>(() => Read(invalid));
+        }
+
+        [Fact]
+        public void GivenIncompleteStream_WhenRead_ThenThrows()
+        {
+            string configuration =
+                """
+                {
+                    "quitPattern": 
+                    {
+                        "inputs": 
+                        [
+                            {
+                                "key": 
+                                {
+                                    "keyCode": "Q",
+                                },
+                                "keyPress": "Down"
+                            }
+                        ]
+                    }
+                }
+                """;
+
+            Assert.Throws<InvalidOperationException>(() => Read(configuration));
         }
 
         private SessionConfiguration Read(string json)

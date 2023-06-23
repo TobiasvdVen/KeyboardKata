@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace KeyboardKata.Domain.Sessions.Configuration
+namespace KeyboardKata.Domain.Sessions.Configuration.Json
 {
     internal class KeyJsonConverter : JsonConverter<Key>
     {
