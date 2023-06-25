@@ -12,9 +12,9 @@ namespace KeyboardKata.Trainer.ViewModels
         [ObservableProperty]
         private string _currentPrompt;
 
-        public TrainerViewModel(string initialPrompt)
+        public TrainerViewModel()
         {
-            _currentPrompt = initialPrompt;
+            CurrentPrompt = "Welcome to Keyboard Kata!";
         }
 
         public void Failure(KeyboardAction action, IEnumerable<Key> actual)

@@ -2,7 +2,7 @@
 {
     public class DesignTrainerViewModel : TrainerViewModel
     {
-        public DesignTrainerViewModel() : base("Do something!")
+        public DesignTrainerViewModel() : base()
         {
         }
     }

@@ -21,19 +21,20 @@ namespace KeyboardKata.Wpf
 
         public void Application_Startup(object sender, StartupEventArgs e)
         {
-            TrainerViewModel trainerViewModel = new(initialPrompt: "Welcome to Keyboard Kata!");
-
-            MainViewModel mainViewModel = new(trainerViewModel);
-
             IHostBuilder builder = Host.CreateDefaultBuilder(e.Args);
 
-            builder.AddKeyboardKataTrainer(trainerViewModel);
+            builder.ConfigureServices(services =>
+            {
+                services.AddSingleton<MainViewModel>();
+            });
+
+            builder.AddKeyboardKataTrainer(s => new TrainerViewModel());
 
             _host = builder.Build();
 
             MainWindow = new MainWindow()
             {
-                DataContext = mainViewModel,
+                DataContext = _host.Services.GetRequiredService<MainViewModel>(),
                 WindowState = WindowState.Maximized
             };
 

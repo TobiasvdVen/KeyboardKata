@@ -10,7 +10,7 @@ namespace KeyboardKata.Trainer.ViewModels.Tests
 
         public TrainerViewModelTests()
         {
-            _trainerViewModel = new TrainerViewModel(string.Empty);
+            _trainerViewModel = new TrainerViewModel();
         }
 
         [Fact]
