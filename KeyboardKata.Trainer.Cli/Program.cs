@@ -10,10 +10,10 @@ namespace KeyboardKata.Trainer.Cli
         {
             IHostBuilder builder = Host.CreateDefaultBuilder(args);
 
-            builder.AddKeyboardKataTrainer<CliKeyboardKata>();
-
-            builder.ConfigureServices(services =>
+            builder.ConfigureServices((context, services) =>
             {
+                services.AddKeyboardKataTrainer<CliKeyboardKata>(context.Configuration);
+
                 services.AddLogging(logging =>
                 {
                     logging

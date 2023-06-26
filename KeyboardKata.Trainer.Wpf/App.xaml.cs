@@ -23,12 +23,12 @@ namespace KeyboardKata.Wpf
         {
             IHostBuilder builder = Host.CreateDefaultBuilder(e.Args);
 
-            builder.ConfigureServices(services =>
+            builder.ConfigureServices((context, services) =>
             {
+                services.AddKeyboardKataTrainer(s => new TrainerViewModel(), context.Configuration);
+
                 services.AddSingleton<MainViewModel>();
             });
-
-            builder.AddKeyboardKataTrainer(s => new TrainerViewModel());
 
             _host = builder.Build();
 

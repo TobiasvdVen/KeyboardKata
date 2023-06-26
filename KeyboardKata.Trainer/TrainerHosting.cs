@@ -6,9 +6,10 @@ using Microsoft.Extensions.Logging.Abstractions;
 using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
-using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.Sessions.Configuration;
 using KeyboardKata.Domain.Actions.Pools;
+using KeyboardKata.Domain.InputMatching;
+using Microsoft.Extensions.Configuration;
 
 #if WINDOWS
 using KeyboardKata.Windows;
@@ -18,76 +19,57 @@ namespace KeyboardKata.Trainer
 {
     public static class TrainerHosting
     {
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder) where TKeyboardKata : class, IKeyboardKata
+        public static IServiceCollection AddKeyboardKataTrainer<TKeyboardKata>(this IServiceCollection services,
+            IConfiguration appConfiguration)
+            where TKeyboardKata : class, IKeyboardKata
         {
-            return hostBuilder.AddKeyboardKataTrainer<TKeyboardKata>(BuildDefaultSettings());
+            SessionConfiguration configuration = LoadSessionConfiguration(appConfiguration);
+
+            return services.AddKeyboardKataTrainer<TKeyboardKata>(configuration);
         }
 
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, SessionConfiguration sessionConfiguration) where TKeyboardKata : class, IKeyboardKata
+        public static IServiceCollection AddKeyboardKataTrainer<TKeyboardKata>(this IServiceCollection services,
+            Func<IServiceProvider, TKeyboardKata> keyboardKata,
+            IConfiguration appConfiguration)
+            where TKeyboardKata : class, IKeyboardKata
         {
-            hostBuilder.ConfigureServices((context, services) =>
-            {
-                services.AddSingleton<TKeyboardKata>();
-                services.AddSingleton<IKeyboardKata>(s => s.GetRequiredService<TKeyboardKata>());
-            });
+            SessionConfiguration configuration = LoadSessionConfiguration(appConfiguration);
 
-            hostBuilder.RegisterKeyboardKataTrainerServices(sessionConfiguration);
-
-            return hostBuilder;
+            return services.AddKeyboardKataTrainer(keyboardKata, configuration);
         }
 
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, Func<IServiceProvider, TKeyboardKata> keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IServiceCollection AddKeyboardKataTrainer<TKeyboardKata>(this IServiceCollection services,
+            SessionConfiguration sessionConfiguration)
+            where TKeyboardKata : class, IKeyboardKata
         {
-            return hostBuilder.AddKeyboardKataTrainer(BuildDefaultSettings(), keyboardKata);
+            services.AddSingleton<TKeyboardKata>();
+
+            return services.RegisterKeyboardKataTrainerServices<TKeyboardKata>(sessionConfiguration);
         }
 
-        public static IHostBuilder AddKeyboardKataTrainer<TKeyboardKata>(this IHostBuilder hostBuilder, SessionConfiguration sessionConfiguration, Func<IServiceProvider, TKeyboardKata> keyboardKata) where TKeyboardKata : class, IKeyboardKata
+        public static IServiceCollection AddKeyboardKataTrainer<TKeyboardKata>(this IServiceCollection services,
+            Func<IServiceProvider, TKeyboardKata> keyboardKata,
+            SessionConfiguration sessionConfiguration)
+            where TKeyboardKata : class, IKeyboardKata
         {
-            hostBuilder.ConfigureServices((context, services) =>
-            {
-                services.AddSingleton<TKeyboardKata>(keyboardKata);
-                services.AddSingleton<IKeyboardKata>(s => s.GetRequiredService<TKeyboardKata>());
-            });
+            services.AddSingleton<TKeyboardKata>(keyboardKata);
 
-            hostBuilder.RegisterKeyboardKataTrainerServices(sessionConfiguration);
-
-            return hostBuilder;
+            return services.RegisterKeyboardKataTrainerServices<TKeyboardKata>(sessionConfiguration);
         }
 
-        private static IHostBuilder RegisterKeyboardKataTrainerServices(this IHostBuilder hostBuilder, SessionConfiguration sessionConfiguration)
+        public static SessionConfiguration LoadSessionConfiguration(IConfiguration appConfiguration)
         {
-            hostBuilder.ConfigureServices((context, services) =>
-            {
-                services.AddSingleton<SessionState>();
-                services.AddSingleton<ISessionState, SessionState>(s => s.GetRequiredService<SessionState>());
-                services.AddSingleton<IInputProcessor, QuitProcessor>(s => new QuitProcessor(
-                    sessionConfiguration.QuitPattern,
-                    s.GetRequiredService<SessionState>(),
-                    s.GetRequiredService<IHostApplicationLifetime>()));
+            string configPath = appConfiguration["config"] ?? throw new ArgumentException("Context configuration did not contain a path to a trainer session config!");
 
-                services.AddSingleton<KeyboardActionSourceFactory>();
-                services.AddSingleton(s => s.GetRequiredService<KeyboardActionSourceFactory>().Create(sessionConfiguration.Actions));
-                services.AddSingleton<ILogger>(NullLogger.Instance);
+            using FileStream configContents = new(configPath, FileMode.Open, FileAccess.Read);
 
-                services.AddHostedService<KeyboardKataTrainerService>();
 
-#if WINDOWS
-                services.AddHostedService<WindowsInputService>();
-
-                services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
-                services.AddSingleton<WindowsInputDelegator>();
-#else
-                throw new PlatformNotSupportedException();
-#endif
-            });
-
-            return hostBuilder;
-        }
-
-        private static SessionConfiguration BuildDefaultSettings()
-        {
 #if WINDOWS
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
+            SessionConfigurationReader configurationReader = new(windowsKeyCodeMapper);
+
+            configurationReader.Read(configContents);
+
             SessionConfiguration defaultSettings = new(
                 quitPattern: new ExactMatchPattern(
                     new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) }),
@@ -109,6 +91,35 @@ namespace KeyboardKata.Trainer
 #else
             throw new PlatformNotSupportedException();
 #endif
+        }
+
+        private static IServiceCollection RegisterKeyboardKataTrainerServices<TKeyboardKata>(this IServiceCollection services, SessionConfiguration sessionConfiguration) where TKeyboardKata : class, IKeyboardKata
+        {
+            services.AddSingleton<IKeyboardKata>(s => s.GetRequiredService<TKeyboardKata>());
+
+            services.AddSingleton<SessionState>();
+            services.AddSingleton<ISessionState, SessionState>(s => s.GetRequiredService<SessionState>());
+            services.AddSingleton<IInputProcessor, QuitProcessor>(s => new QuitProcessor(
+                sessionConfiguration.QuitPattern,
+                s.GetRequiredService<SessionState>(),
+                s.GetRequiredService<IHostApplicationLifetime>()));
+
+            services.AddSingleton<KeyboardActionSourceFactory>();
+            services.AddSingleton(s => s.GetRequiredService<KeyboardActionSourceFactory>().Create(sessionConfiguration.Actions));
+            services.AddSingleton<ILogger>(NullLogger.Instance);
+
+            services.AddHostedService<KeyboardKataTrainerService>();
+
+#if WINDOWS
+            services.AddHostedService<WindowsInputService>();
+
+            services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
+            services.AddSingleton<WindowsInputDelegator>();
+#else
+            throw new PlatformNotSupportedException();
+#endif
+
+            return services;
         }
     }
 }
