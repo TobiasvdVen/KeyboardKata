@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Text.Json.Polymorphism
+namespace KeyboardKata.Domain.Extensions.Nullability
 {
-    internal static class NullableExtensions
+    public static class NullabilityExtensions
     {
         private const byte nullOblivious = 0;
         private const byte notNullable = 1;
         private const byte nullable = 2;
 
-        internal static bool IsProperty(this MemberInfo memberInfo)
+        public static bool IsProperty(this MemberInfo memberInfo)
         {
             return memberInfo is PropertyInfo;
         }
 
-        internal static bool IsField(this MemberInfo memberInfo)
+        public static bool IsField(this MemberInfo memberInfo)
         {
             return memberInfo is FieldInfo;
         }
 
-        internal static bool IsPropertyOrField(this MemberInfo memberInfo)
+        public static bool IsPropertyOrField(this MemberInfo memberInfo)
         {
             return memberInfo.IsProperty() || memberInfo.IsField();
         }
 
-        internal static bool IsNullable(this PropertyInfo propertyInfo)
+        public static bool IsNullable(this PropertyInfo propertyInfo)
         {
             Type type = propertyInfo.PropertyType;
 
@@ -38,7 +35,7 @@ namespace Text.Json.Polymorphism
             return propertyInfo.IsNullableMember();
         }
 
-        internal static bool IsNullable(this FieldInfo fieldInfo)
+        public static bool IsNullable(this FieldInfo fieldInfo)
         {
             Type type = fieldInfo.FieldType;
 
@@ -50,7 +47,7 @@ namespace Text.Json.Polymorphism
             return fieldInfo.IsNullableMember();
         }
 
-        internal static bool IsNullableMember(this MemberInfo memberInfo)
+        public static bool IsNullableMember(this MemberInfo memberInfo)
         {
             if (!memberInfo.IsPropertyOrField())
             {
@@ -64,7 +61,7 @@ namespace Text.Json.Polymorphism
                 return false;
             }
 
-            if (nullable == nullOblivious || nullable == NullableExtensions.nullable)
+            if (nullable == nullOblivious || nullable == NullabilityExtensions.nullable)
             {
                 return true;
             }
@@ -78,7 +75,7 @@ namespace Text.Json.Polymorphism
                     return false;
                 }
 
-                if (declaringTypeNullable == nullOblivious || declaringTypeNullable == NullableExtensions.nullable)
+                if (declaringTypeNullable == nullOblivious || declaringTypeNullable == NullabilityExtensions.nullable)
                 {
                     return true;
                 }
@@ -92,7 +89,7 @@ namespace Text.Json.Polymorphism
                         return false;
                     }
 
-                    if (secondDeclaringTypeNullable == nullOblivious || secondDeclaringTypeNullable == NullableExtensions.nullable)
+                    if (secondDeclaringTypeNullable == nullOblivious || secondDeclaringTypeNullable == NullabilityExtensions.nullable)
                     {
                         return true;
                     }
@@ -105,7 +102,7 @@ namespace Text.Json.Polymorphism
                     return false;
                 }
 
-                if (declaringInfoNullable == nullOblivious || declaringInfoNullable == NullableExtensions.nullable)
+                if (declaringInfoNullable == nullOblivious || declaringInfoNullable == NullabilityExtensions.nullable)
                 {
                     return true;
                 }
@@ -114,7 +111,7 @@ namespace Text.Json.Polymorphism
             return true;
         }
 
-        internal static bool IsNullable(this ParameterInfo parameterInfo)
+        public static bool IsNullable(this ParameterInfo parameterInfo)
         {
             byte? nullable = GetNullableAttributeByte(parameterInfo.CustomAttributes);
 
@@ -123,7 +120,7 @@ namespace Text.Json.Polymorphism
                 return false;
             }
 
-            if (nullable == nullOblivious || nullable == NullableExtensions.nullable)
+            if (nullable == nullOblivious || nullable == NullabilityExtensions.nullable)
             {
                 return true;
             }
@@ -135,7 +132,7 @@ namespace Text.Json.Polymorphism
                 return false;
             }
 
-            if (memberNullable == nullOblivious || memberNullable == NullableExtensions.nullable)
+            if (memberNullable == nullOblivious || memberNullable == NullabilityExtensions.nullable)
             {
                 return true;
             }
@@ -149,7 +146,7 @@ namespace Text.Json.Polymorphism
                     return false;
                 }
 
-                if (declaringTypeNullable == nullOblivious || declaringTypeNullable == NullableExtensions.nullable)
+                if (declaringTypeNullable == nullOblivious || declaringTypeNullable == NullabilityExtensions.nullable)
                 {
                     return true;
                 }
@@ -163,7 +160,7 @@ namespace Text.Json.Polymorphism
                         return false;
                     }
 
-                    if (secondDeclaringTypeNullable == nullOblivious || secondDeclaringTypeNullable == NullableExtensions.nullable)
+                    if (secondDeclaringTypeNullable == nullOblivious || secondDeclaringTypeNullable == NullabilityExtensions.nullable)
                     {
                         return true;
                     }
@@ -176,7 +173,7 @@ namespace Text.Json.Polymorphism
                     return false;
                 }
 
-                if (declaringInfoNullable == nullOblivious || declaringInfoNullable == NullableExtensions.nullable)
+                if (declaringInfoNullable == nullOblivious || declaringInfoNullable == NullabilityExtensions.nullable)
                 {
                     return true;
                 }
