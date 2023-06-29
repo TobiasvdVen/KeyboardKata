@@ -31,9 +31,27 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
         }
 
         [Fact]
-        public void GivenNestedNull_WhenIntegrityTested_ThenDoesNotHaveIntegrity()
+        public void GivenNestedNullProperty_WhenIntegrityTested_ThenDoesNotHaveIntegrity()
         {
             NestedNonNullable nestedNull = new(property: new NonNullableProperty(null!), field: new NonNullableField(new Hello()));
+
+            Assert.False(nestedNull.HasNullIntegrity());
+        }
+
+        [Fact]
+        public void GivenNoIntegrity_WhenIntegrityTested_ThenIdentifyOffendingMember()
+        {
+            NestedNonNullable nestedNull = new(property: new NonNullableProperty(null!), field: new NonNullableField(new Hello()));
+
+            Assert.False(nestedNull.HasNullIntegrity(out string errors));
+
+            Assert.Contains($"{nameof(NestedNonNullable.Property)}.{nameof(NonNullableProperty.NotNullable)}", errors);
+        }
+
+        [Fact]
+        public void GivenNestedNullField_WhenIntegrityTested_ThenDoesNotHaveIntegrity()
+        {
+            NestedNonNullable nestedNull = new(property: new NonNullableProperty(new Hello()), field: new NonNullableField(null!));
 
             Assert.False(nestedNull.HasNullIntegrity());
         }
