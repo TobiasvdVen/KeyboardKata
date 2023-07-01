@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using System.Text;
 
 namespace KeyboardKata.Domain.Extensions.Nullability
@@ -32,9 +33,12 @@ namespace KeyboardKata.Domain.Extensions.Nullability
 
             MemberInfo[] members = type.GetMembers();
 
+            NullabilityInfoContext context = new();
+
             foreach (MemberInfo member in members)
             {
                 object? value;
+                NullabilityInfo info;
 
                 switch (member)
                 {
@@ -45,10 +49,13 @@ namespace KeyboardKata.Domain.Extensions.Nullability
                         }
 
                         value = property.GetValue(target);
+                        info = context.Create(property);
+
                         break;
 
                     case FieldInfo field:
                         value = field.GetValue(target);
+                        info = context.Create(field);
 
                         if (field.IsStatic)
                         {
@@ -65,7 +72,7 @@ namespace KeyboardKata.Domain.Extensions.Nullability
 
                 if (value is null)
                 {
-                    if (!member.IsNullableMember())
+                    if (info.ReadState != NullabilityState.Nullable)
                     {
                         string pathToProperty = string.Join(".", path.Reverse());
                         errorSummaryBuilder.AppendLine($"Property at path {pathToProperty} was null!");
@@ -74,6 +81,39 @@ namespace KeyboardKata.Domain.Extensions.Nullability
                 }
                 else
                 {
+                    if (value is IEnumerable enumerable)
+                    {
+                        if (enumerable.GetType().GenericTypeArguments.Length > 0)
+                        {
+                            NullabilityInfo genericInfo = info.GenericTypeArguments[0];
+
+                            if (genericInfo.ReadState != NullabilityState.Nullable)
+                            {
+                                IEnumerator enumerator = enumerable.GetEnumerator();
+
+                                bool elementIntegrity = true;
+                                int count = 0;
+
+                                while (enumerator.MoveNext())
+                                {
+                                    if (enumerator.Current is null)
+                                    {
+                                        string pathToProperty = string.Join(".", path.Reverse());
+
+                                        errorSummaryBuilder.AppendLine($"Element at path {pathToProperty}[{count}] was null!");
+                                    }
+
+                                    count++;
+                                }
+
+                                if (!elementIntegrity)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     bool nestedIntegrity = value.HasNullIntegrity(errorSummaryBuilder, path);
 
                     if (!nestedIntegrity)
