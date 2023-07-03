@@ -4,11 +4,11 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability.Models
 {
     internal class ListOfNonNullables
     {
-        public ListOfNonNullables(List<Hello> things)
+        public ListOfNonNullables(List<NestedNonNullable> things)
         {
             Things = things;
         }
 
-        public List<Hello> Things { get; }
+        public List<NestedNonNullable> Things { get; }
     }
 }

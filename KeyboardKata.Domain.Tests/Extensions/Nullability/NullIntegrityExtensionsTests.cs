@@ -61,7 +61,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
         public void GivenListOfNullables_ThenHasIntegrity()
         {
             ListOfNullables listOfNullables = new(
-                new List<Hello?>()
+                new List<NestedNonNullable?>()
                 {
                     null
                 });
@@ -73,7 +73,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
         public void GivenListWithNull_ThenDoesNotHaveIntegrity()
         {
             ListOfNonNullables listOfNonNullables = new(
-                new List<Hello>()
+                new List<NestedNonNullable>()
                 {
                     null!
                 });
@@ -85,14 +85,40 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
         public void GivenNoIntegrityList_ThenIdentifyOffendingElement()
         {
             ListOfNonNullables listOfNonNullables = new(
-                new List<Hello>()
+                new List<NestedNonNullable>()
                 {
-                    new Hello(),
+                    new NestedNonNullable(new NonNullableProperty(new Hello()), new NonNullableField(new Hello())),
                     null!
                 });
 
             Assert.False(listOfNonNullables.HasNullIntegrity(out string errorSummary));
             Assert.Contains("Things[1]", errorSummary);
+        }
+
+        [Fact]
+        public void GivenList_WhenElementDoesNotHaveIntegrity_ThenDoesNotHaveIntegrity()
+        {
+            ListOfNonNullables listOfNonNullables = new(
+                new List<NestedNonNullable>()
+                {
+                    new NestedNonNullable(new NonNullableProperty(null!), new NonNullableField(new Hello())),
+                });
+
+            Assert.False(listOfNonNullables.HasNullIntegrity());
+        }
+
+        [Fact]
+        public void GivenList_WhenElementDoesNotHaveIntegrity_ThenIdentifyOffendingElementAndMember()
+        {
+            ListOfNonNullables listOfNonNullables = new(
+                new List<NestedNonNullable>()
+                {
+                    new NestedNonNullable(new NonNullableProperty(new Hello()), new NonNullableField(new Hello())),
+                    new NestedNonNullable(new NonNullableProperty(null!), new NonNullableField(new Hello())),
+                });
+
+            Assert.False(listOfNonNullables.HasNullIntegrity(out string errorSummary));
+            Assert.Contains("Things[1].Property.NotNullable", errorSummary);
         }
     }
 }
