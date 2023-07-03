@@ -1,8 +1,8 @@
-﻿using KeyboardKata.Domain.InputProcessing;
+﻿using KeyboardKata.Domain.Extensions.Nullability;
+using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions.Configuration.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Text.Json.Polymorphism;
 
 namespace KeyboardKata.Domain.Sessions.Configuration
 {
@@ -21,14 +21,19 @@ namespace KeyboardKata.Domain.Sessions.Configuration
             {
                 JsonSerializerOptions options = BuildJsonOptions();
 
-                JsonSerializerOptions nullableSafeOptions = BuildJsonOptions(o =>
+                SessionConfiguration? configuration = JsonSerializer.Deserialize<SessionConfiguration>(stream, options);
+
+                if (configuration is null)
                 {
-                    o.Converters.Add(new NullableJsonConverter(options));
-                });
+                    throw new JsonException("Deserialize returned null.");
+                }
 
-                SessionConfiguration? configuration = JsonSerializer.Deserialize<SessionConfiguration>(stream, nullableSafeOptions);
+                if (!configuration.HasNullIntegrity(out string errorSummary))
+                {
+                    throw new JsonException(errorSummary);
+                }
 
-                return configuration ?? throw new JsonException("Deserialize returned null.");
+                return configuration;
             }
             catch (JsonException ex)
             {
@@ -36,7 +41,7 @@ namespace KeyboardKata.Domain.Sessions.Configuration
             }
         }
 
-        private JsonSerializerOptions BuildJsonOptions(Action<JsonSerializerOptions>? customize = null)
+        private JsonSerializerOptions BuildJsonOptions()
         {
             JsonSerializerOptions options = new()
             {
@@ -48,11 +53,6 @@ namespace KeyboardKata.Domain.Sessions.Configuration
             options.Converters.Add(new KeyJsonConverter(_keyCodeMapper));
             options.Converters.Add(new KeyboardActionPoolJsonConverter());
             options.Converters.Add(new PatternJsonConverter());
-
-            if (customize is not null)
-            {
-                customize(options);
-            }
 
             options.AddContext<SessionConfigurationJsonContext>();
 

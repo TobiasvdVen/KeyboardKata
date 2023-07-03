@@ -13,8 +13,4 @@
     <PackageReference Include="Optional" Version="4.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Text.Json.Polymorphism\Text.Json.Polymorphism.csproj" />
-  </ItemGroup>
-
 </Project>

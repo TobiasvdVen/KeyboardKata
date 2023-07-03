@@ -24,6 +24,12 @@ namespace KeyboardKata.Domain.Sessions.Configuration.Json
 
                 return JsonSerializer.Deserialize<SingleActionPool>(ref reader, options);
             }
+            else if (property == "linear")
+            {
+                reader = reset;
+
+                return JsonSerializer.Deserialize<LinearActionPool>(ref reader, options);
+            }
 
             return null;
         }

@@ -6,6 +6,7 @@ namespace KeyboardKata.Domain.Sessions.Configuration
 {
     [JsonSerializable(typeof(SessionConfiguration))]
     [JsonSerializable(typeof(SingleActionPool))]
+    [JsonSerializable(typeof(LinearActionPool))]
     [JsonSerializable(typeof(ExactMatchPattern))]
     internal partial class SessionConfigurationJsonContext : JsonSerializerContext
     {

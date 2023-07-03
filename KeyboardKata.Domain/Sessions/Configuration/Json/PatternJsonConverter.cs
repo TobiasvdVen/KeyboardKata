@@ -22,7 +22,9 @@ namespace KeyboardKata.Domain.Sessions.Configuration.Json
             {
                 reader = reset;
 
-                return JsonSerializer.Deserialize<ExactMatchPattern>(ref reader, options);
+                ExactMatchPattern? exactMatchPattern = JsonSerializer.Deserialize<ExactMatchPattern>(ref reader, options);
+
+                return exactMatchPattern;
             }
 
             return null;
