@@ -1,12 +1,11 @@
 ﻿using KeyboardKata.Domain.Extensions.Json;
 using KeyboardKata.Domain.Tests.Extensions.Json.Models;
-using System;
 using System.Text.Json;
 using Xunit;
 
 namespace KeyboardKata.Domain.Tests.Extensions.Json
 {
-    public class TypeDiscriminatorJsonConverterTests
+    public class TypeDiscriminatorRegistrationTests
     {
         [Fact]
         public void GivenBlueRegistered_WhenJsonIsBlue_ThenDeserializeBlue()
@@ -81,10 +80,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             TypeDiscriminatorBuilder<ISomeInterface> builder = new();
 
-            Func<string, string> mutator = (discriminator) =>
-            {
-                return discriminator.Replace("Implementation", string.Empty);
-            };
+            static string mutator(string discriminator) => discriminator.Replace("Implementation", string.Empty);
 
             builder.Register(typeof(BlueImplementation), mutator);
 
@@ -105,13 +101,11 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-
-            Func<string, string> mutator = (discriminator) =>
+            TypeDiscriminatorBuilder<ISomeInterface> builder = new()
             {
-                return discriminator.Replace("Implementation", string.Empty);
+                DefaultMutator = (string discriminator) => discriminator.Replace("Implementation", string.Empty)
             };
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new(mutator);
             builder.Register(typeof(BlueImplementation));
             builder.Register(typeof(OrangeImplementation));
 
