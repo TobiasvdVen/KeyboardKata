@@ -18,5 +18,10 @@
         {
             _types[discriminator] = type;
         }
+
+        public void Register(Type type)
+        {
+            Register(type, type.Name);
+        }
     }
 }

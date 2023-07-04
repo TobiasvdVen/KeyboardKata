@@ -20,7 +20,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 """;
 
             TypeDiscriminatorBuilder<ISomeInterface> builder = new();
-            builder.Register(typeof(BlueImplementation), "BlueImplementation");
+            builder.Register(typeof(BlueImplementation));
 
             HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
 
@@ -40,7 +40,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 """;
 
             TypeDiscriminatorBuilder<ISomeInterface> builder = new();
-            builder.Register(typeof(BlueImplementation), "BlueImplementation");
+            builder.Register(typeof(BlueImplementation));
 
             Assert.Throws<JsonException>(() => Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter()));
         }
@@ -58,8 +58,8 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 """;
 
             TypeDiscriminatorBuilder<ISomeInterface> builder = new();
-            builder.Register(typeof(BlueImplementation), "BlueImplementation");
-            builder.Register(typeof(OrangeImplementation), "OrangeImplementation");
+            builder.Register(typeof(BlueImplementation));
+            builder.Register(typeof(OrangeImplementation));
 
             HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
 
