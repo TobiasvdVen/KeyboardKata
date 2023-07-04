@@ -9,9 +9,8 @@
             _types = types;
         }
 
-        public Type ResolveType(string discriminator)
-        {
-            return _types[discriminator];
-        }
+        public bool CanResolve(string discriminator) => _types.ContainsKey(discriminator);
+
+        public Type ResolveType(string discriminator) => _types[discriminator];
     }
 }

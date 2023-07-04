@@ -7,26 +7,8 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 {
     public class TypeDiscriminatorJsonConverterTests
     {
-        private readonly JsonSerializerOptions _options;
-
-        public TypeDiscriminatorJsonConverterTests()
-        {
-            _options = new JsonSerializerOptions()
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
-
-            builder.Register(typeof(BlueImplementation), "BlueImplementation");
-
-            TypeDiscriminatorJsonConverter<ISomeInterface> converter = builder.BuildConverter();
-
-            _options.Converters.Add(converter);
-        }
-
         [Fact]
-        public void GivenBlue_ThenDeserializeAsBlue()
+        public void GivenBlueRegistered_WhenJsonIsBlue_ThenDeserializeBlue()
         {
             string json = """
                 {
@@ -37,9 +19,68 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            HasSomeInterface? result = JsonSerializer.Deserialize<HasSomeInterface>(json, _options);
+            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            builder.Register(typeof(BlueImplementation), "BlueImplementation");
 
-            BlueImplementation blue = Assert.IsType<BlueImplementation>(result!.SomeInterface);
+            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+
+            Assert.IsType<BlueImplementation>(result!.SomeInterface);
+        }
+
+        [Fact]
+        public void GivenOnlyBlueRegistered_WhenJsonIsOrange_ThenThrow()
+        {
+            string json = """
+                {
+                    "someInterface":
+                    {
+                        "type": "OrangeImplementation"
+                    }
+                }
+                """;
+
+            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            builder.Register(typeof(BlueImplementation), "BlueImplementation");
+
+            Assert.Throws<JsonException>(() => Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter()));
+        }
+
+        [Fact]
+        public void GivenOrangeAndBlueRegistered_WhenJsonIsOrange_ThenDeserializeOrange()
+        {
+            string json = """
+                {
+                    "someInterface":
+                    {
+                        "type": "OrangeImplementation"
+                    }
+                }
+                """;
+
+            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            builder.Register(typeof(BlueImplementation), "BlueImplementation");
+            builder.Register(typeof(OrangeImplementation), "OrangeImplementation");
+
+            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+
+            Assert.IsType<OrangeImplementation>(result!.SomeInterface);
+        }
+
+        private TDeserialize Deserialize<TDeserialize, TDiscrimated>(string json, TypeDiscriminatorJsonConverter<TDiscrimated> converter) where TDiscrimated : class
+        {
+            JsonSerializerOptions options = new()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+            options.Converters.Add(converter);
+
+            TDeserialize? result = JsonSerializer.Deserialize<TDeserialize>(json, options);
+
+            Assert.NotNull(result);
+
+            return result;
+
         }
     }
 }

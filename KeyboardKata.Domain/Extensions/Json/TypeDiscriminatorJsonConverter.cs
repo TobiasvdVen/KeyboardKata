@@ -30,6 +30,11 @@ namespace KeyboardKata.Domain.Extensions.Json
                 return null;
             }
 
+            if (!_discriminatorMap.CanResolve(discriminator))
+            {
+                throw new JsonException($"Unable to resolve {discriminator} when deserializing type {typeToConvert.Name}.");
+            }
+
             Type type = _discriminatorMap.ResolveType(discriminator);
 
             object? result = JsonSerializer.Deserialize(ref reader, type, options);
