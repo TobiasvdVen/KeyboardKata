@@ -19,10 +19,10 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            TypeDiscriminatorBuilder<IColor> builder = new();
             builder.Register(typeof(BlueImplementation));
 
-            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<BlueImplementation>(result!.SomeInterface);
         }
@@ -39,10 +39,10 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            TypeDiscriminatorBuilder<IColor> builder = new();
             builder.Register(typeof(BlueImplementation));
 
-            Assert.Throws<JsonException>(() => Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter()));
+            Assert.Throws<JsonException>(() => Deserialize<HasColor, IColor>(json, builder.BuildConverter()));
         }
 
         [Fact]
@@ -57,11 +57,11 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            TypeDiscriminatorBuilder<IColor> builder = new();
             builder.Register(typeof(BlueImplementation));
             builder.Register(typeof(OrangeImplementation));
 
-            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<OrangeImplementation>(result!.SomeInterface);
         }
@@ -78,13 +78,13 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new();
+            TypeDiscriminatorBuilder<IColor> builder = new();
 
             static string mutator(string discriminator) => discriminator.Replace("Implementation", string.Empty);
 
             builder.Register(typeof(BlueImplementation), mutator);
 
-            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<BlueImplementation>(result!.SomeInterface);
         }
@@ -101,7 +101,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
                 }
                 """;
 
-            TypeDiscriminatorBuilder<ISomeInterface> builder = new()
+            TypeDiscriminatorBuilder<IColor> builder = new()
             {
                 DefaultMutator = (string discriminator) => discriminator.Replace("Implementation", string.Empty)
             };
@@ -109,7 +109,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
             builder.Register(typeof(BlueImplementation));
             builder.Register(typeof(OrangeImplementation));
 
-            HasSomeInterface result = Deserialize<HasSomeInterface, ISomeInterface>(json, builder.BuildConverter());
+            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<OrangeImplementation>(result!.SomeInterface);
         }

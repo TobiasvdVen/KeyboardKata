@@ -1,6 +1,6 @@
 ﻿namespace KeyboardKata.Domain.Tests.Extensions.Json.Models
 {
-    public class OrangeImplementation : ISomeInterface
+    public class OrangeImplementation : IColor
     {
     }
 }
