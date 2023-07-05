@@ -5,10 +5,12 @@ namespace KeyboardKata.Domain.Extensions.Json
 {
     public class TypeDiscriminatorJsonConverter<T> : JsonConverter<T> where T : class
     {
+        private readonly string _typeDiscriminatorIdentifier;
         private readonly ITypeDiscriminatorMap _discriminatorMap;
 
-        public TypeDiscriminatorJsonConverter(ITypeDiscriminatorMap discriminatorMap)
+        public TypeDiscriminatorJsonConverter(string typeDiscriminatorIdentifier, ITypeDiscriminatorMap discriminatorMap)
         {
+            _typeDiscriminatorIdentifier = typeDiscriminatorIdentifier;
             _discriminatorMap = discriminatorMap;
         }
 
@@ -19,15 +21,30 @@ namespace KeyboardKata.Domain.Extensions.Json
 
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            Utf8JsonReader copy = reader;
+            Utf8JsonReader cached = reader;
 
-            copy.Read();
-            copy.Read();
-            string? discriminator = copy.GetString();
+            string? discriminator = null;
+
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.PropertyName)
+                {
+                    if (reader.ValueTextEquals(_typeDiscriminatorIdentifier))
+                    {
+                        reader.Read();
+                        discriminator = reader.GetString();
+                    }
+                }
+
+                if (reader.TokenType == JsonTokenType.EndObject)
+                {
+                    break;
+                }
+            }
 
             if (discriminator is null)
             {
-                return null;
+                throw new JsonException($"Unable to find type discriminator identified by: {_typeDiscriminatorIdentifier}.");
             }
 
             if (!_discriminatorMap.CanResolve(discriminator))
@@ -37,6 +54,7 @@ namespace KeyboardKata.Domain.Extensions.Json
 
             Type type = _discriminatorMap.ResolveType(discriminator);
 
+            reader = cached;
             object? result = JsonSerializer.Deserialize(ref reader, type, options);
 
             return result as T;

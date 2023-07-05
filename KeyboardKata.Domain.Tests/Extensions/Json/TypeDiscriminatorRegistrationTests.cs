@@ -22,7 +22,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
             TypeDiscriminatorBuilder<IColor> builder = new();
             builder.Register(typeof(BlueImplementation));
 
-            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
+            HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<BlueImplementation>(result!.SomeInterface);
         }
@@ -42,7 +42,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
             TypeDiscriminatorBuilder<IColor> builder = new();
             builder.Register(typeof(BlueImplementation));
 
-            Assert.Throws<JsonException>(() => Deserialize<HasColor, IColor>(json, builder.BuildConverter()));
+            Assert.Throws<JsonException>(() => JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter()));
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
             builder.Register(typeof(BlueImplementation));
             builder.Register(typeof(OrangeImplementation));
 
-            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
+            HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<OrangeImplementation>(result!.SomeInterface);
         }
@@ -84,7 +84,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             builder.Register(typeof(BlueImplementation), mutator);
 
-            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
+            HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<BlueImplementation>(result!.SomeInterface);
         }
@@ -109,26 +109,9 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
             builder.Register(typeof(BlueImplementation));
             builder.Register(typeof(OrangeImplementation));
 
-            HasColor result = Deserialize<HasColor, IColor>(json, builder.BuildConverter());
+            HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
             Assert.IsType<OrangeImplementation>(result!.SomeInterface);
-        }
-
-        private TDeserialize Deserialize<TDeserialize, TDiscrimated>(string json, TypeDiscriminatorJsonConverter<TDiscrimated> converter) where TDiscrimated : class
-        {
-            JsonSerializerOptions options = new()
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            options.Converters.Add(converter);
-
-            TDeserialize? result = JsonSerializer.Deserialize<TDeserialize>(json, options);
-
-            Assert.NotNull(result);
-
-            return result;
-
         }
     }
 }

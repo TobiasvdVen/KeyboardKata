@@ -7,13 +7,16 @@
         public TypeDiscriminatorBuilder()
         {
             _types = new Dictionary<string, Type>();
+
+            TypeDiscriminatorIdentifier = "type";
         }
 
         public Func<string, string>? DefaultMutator { get; set; }
+        public string TypeDiscriminatorIdentifier { get; set; }
 
         public TypeDiscriminatorJsonConverter<T> BuildConverter()
         {
-            return new TypeDiscriminatorJsonConverter<T>(new RegisteredTypeDiscriminatorMap(_types));
+            return new TypeDiscriminatorJsonConverter<T>(TypeDiscriminatorIdentifier, new RegisteredTypeDiscriminatorMap(_types));
         }
 
         public void Register(Type type, string discriminator)
