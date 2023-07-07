@@ -19,25 +19,26 @@
             return new TypeDiscriminatorJsonConverter<T>(TypeDiscriminatorIdentifier, new RegisteredTypeDiscriminatorMap(_types));
         }
 
-        public void Register(Type type, string discriminator)
+        public TypeDiscriminatorBuilder<T> Register(Type type, string discriminator)
         {
             _types[discriminator] = type;
+
+            return this;
         }
 
-        public void Register(Type type)
+        public TypeDiscriminatorBuilder<T> Register(Type type)
         {
             if (DefaultMutator is not null)
             {
-                Register(type, DefaultMutator);
-                return;
+                return Register(type, DefaultMutator);
             }
 
-            Register(type, type.Name);
+            return Register(type, type.Name);
         }
 
-        public void Register(Type type, Func<string, string> mutator)
+        public TypeDiscriminatorBuilder<T> Register(Type type, Func<string, string> mutator)
         {
-            Register(type, mutator(type.Name));
+            return Register(type, mutator(type.Name));
         }
     }
 }

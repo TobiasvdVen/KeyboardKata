@@ -90,5 +90,44 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             Assert.IsType<NumberComponent>(result.SomeComponent);
         }
+
+        [Fact]
+        public void GivenSameDiscriminatorInNestedJsonObject_WhenDeserialized_ThenDeserializeOnlyTopLevelObject()
+        {
+            string json = """
+                {
+                    "someComponent":
+                    {
+                        "discriminator": "ColorComponent",
+                        "hasColor":
+                        {
+                            "color":
+                            {
+                                "discriminator": "BlueImplementation"
+                            }
+                        }
+                    }
+                }
+                """;
+
+            TypeDiscriminatorBuilder<IComponent> componentBuilder = new()
+            {
+                TypeDiscriminatorIdentifier = "discriminator"
+            };
+
+            componentBuilder.Register(typeof(ColorComponent));
+
+            TypeDiscriminatorBuilder<IColor> colorBuilder = new()
+            {
+                TypeDiscriminatorIdentifier = "discriminator"
+            };
+
+            colorBuilder.Register(typeof(BlueImplementation));
+
+            HasComponent hasComponent = JsonAssert.Deserialize<HasComponent>(json, componentBuilder.BuildConverter(), colorBuilder.BuildConverter());
+
+            ColorComponent colorComponent = Assert.IsType<ColorComponent>(hasComponent.SomeComponent);
+            Assert.IsType<BlueImplementation>(colorComponent.HasColor.Color);
+        }
     }
 }

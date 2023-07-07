@@ -16,7 +16,9 @@ namespace KeyboardKata.Domain.Extensions.Json
 
         public override bool CanConvert(Type typeToConvert)
         {
-            return typeToConvert == typeof(T);
+            bool canConvert = typeToConvert == typeof(T);
+
+            return canConvert;
         }
 
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -33,6 +35,7 @@ namespace KeyboardKata.Domain.Extensions.Json
                     {
                         reader.Read();
                         discriminator = reader.GetString();
+                        break;
                     }
                 }
 

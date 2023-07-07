@@ -2,11 +2,11 @@
 {
     public class HasColor
     {
-        public HasColor(IColor someInterface)
+        public HasColor(IColor color)
         {
-            SomeInterface = someInterface;
+            Color = color;
         }
 
-        public IColor SomeInterface { get; }
+        public IColor Color { get; }
     }
 }

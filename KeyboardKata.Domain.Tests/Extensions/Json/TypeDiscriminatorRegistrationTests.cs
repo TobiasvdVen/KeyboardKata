@@ -12,7 +12,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
         {
             string json = """
                 {
-                    "someInterface":
+                    "color":
                     {
                         "type": "BlueImplementation"
                     }
@@ -24,7 +24,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
-            Assert.IsType<BlueImplementation>(result!.SomeInterface);
+            Assert.IsType<BlueImplementation>(result!.Color);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
         {
             string json = """
                 {
-                    "someInterface":
+                    "color":
                     {
                         "type": "OrangeImplementation"
                     }
@@ -50,7 +50,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
         {
             string json = """
                 {
-                    "someInterface":
+                    "color":
                     {
                         "type": "OrangeImplementation"
                     }
@@ -63,7 +63,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
-            Assert.IsType<OrangeImplementation>(result!.SomeInterface);
+            Assert.IsType<OrangeImplementation>(result!.Color);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
         {
             string json = """
                 {
-                    "someInterface":
+                    "color":
                     {
                         "type": "Blue"
                     }
@@ -86,7 +86,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
-            Assert.IsType<BlueImplementation>(result!.SomeInterface);
+            Assert.IsType<BlueImplementation>(result!.Color);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
         {
             string json = """
                 {
-                    "someInterface":
+                    "color":
                     {
                         "type": "Orange"
                     }
@@ -111,7 +111,7 @@ namespace KeyboardKata.Domain.Tests.Extensions.Json
 
             HasColor result = JsonAssert.Deserialize<HasColor, IColor>(json, builder.BuildConverter());
 
-            Assert.IsType<OrangeImplementation>(result!.SomeInterface);
+            Assert.IsType<OrangeImplementation>(result!.Color);
         }
     }
 }
