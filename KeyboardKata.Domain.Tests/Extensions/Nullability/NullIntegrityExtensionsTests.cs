@@ -1,6 +1,7 @@
 ﻿using KeyboardKata.Domain.Extensions.Nullability;
 using KeyboardKata.Domain.Tests.Extensions.Nullability.Models;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace KeyboardKata.Domain.Tests.Extensions.Nullability
@@ -70,6 +71,18 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
         }
 
         [Fact]
+        public void GivenInitializedList_ThenHasIntegrity()
+        {
+            ListOfNonNullables listOfNonNullables = new(
+                new List<NestedNonNullable>()
+                {
+                    new NestedNonNullable(new NonNullableProperty(new Hello()), new NonNullableField(new Hello()))
+                });
+
+            Assert.True(listOfNonNullables.HasNullIntegrity());
+        }
+
+        [Fact]
         public void GivenListWithNull_ThenDoesNotHaveIntegrity()
         {
             ListOfNonNullables listOfNonNullables = new(
@@ -119,6 +132,14 @@ namespace KeyboardKata.Domain.Tests.Extensions.Nullability
 
             Assert.False(listOfNonNullables.HasNullIntegrity(out string errorSummary));
             Assert.Contains("Things[1].Property.NotNullable", errorSummary);
+        }
+
+        [Fact]
+        public void GivenEmptyEnumerable_ThenHasIntegrity()
+        {
+            ListOfNonNullables listOfNonNullables = new(Enumerable.Empty<NestedNonNullable>());
+
+            Assert.True(listOfNonNullables.HasNullIntegrity());
         }
     }
 }

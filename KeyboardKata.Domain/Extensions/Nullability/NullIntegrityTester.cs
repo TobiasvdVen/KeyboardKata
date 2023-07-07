@@ -36,12 +36,12 @@ namespace KeyboardKata.Domain.Extensions.Nullability
         {
             Type type = _target.GetType();
 
-            if (type.IsValueType)
+            if (TypeDoesNotRequireTesting(type))
             {
                 return true;
             }
 
-            MemberInfo[] members = type.GetMembers();
+            MemberInfo[] members = GetTestableMembers(type);
 
             foreach (MemberInfo member in members)
             {
@@ -59,6 +59,16 @@ namespace KeyboardKata.Domain.Extensions.Nullability
             }
 
             return _errorSummaryBuilder.Length == 0;
+        }
+
+        private MemberInfo[] GetTestableMembers(Type type)
+        {
+            return type.GetMembers().Where(m => m is FieldInfo || m is PropertyInfo).ToArray();
+        }
+
+        private bool TypeDoesNotRequireTesting(Type type)
+        {
+            return type.IsValueType || (type.Name == "EmptyPartition`1" && type.Namespace == "System.Linq");
         }
 
         private bool MemberHasValue(MemberInfo member, out object? value, [NotNullWhen(true)] out NullabilityInfo? info)
