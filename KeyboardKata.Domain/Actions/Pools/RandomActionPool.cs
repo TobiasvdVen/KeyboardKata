@@ -2,12 +2,8 @@
 {
     public record RandomActionPool : KeyboardActionPool
     {
-        public RandomActionPool(IEnumerable<KeyboardActionPool> random, int? repeats) : base(repeats)
+        public RandomActionPool(IEnumerable<KeyboardActionPool> actions, int? repeats) : base(actions, repeats)
         {
-            Random = random;
         }
-
-        public IEnumerable<KeyboardActionPool> Random { get; }
-        public override IEnumerable<KeyboardActionPool> Actions => Random;
     }
 }

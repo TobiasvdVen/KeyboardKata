@@ -2,12 +2,8 @@
 {
     public record LinearActionPool : KeyboardActionPool
     {
-        public LinearActionPool(IEnumerable<KeyboardActionPool> linear, int? repeats) : base(repeats)
+        public LinearActionPool(IEnumerable<KeyboardActionPool> actions, int? repeats) : base(actions, repeats)
         {
-            Linear = linear;
         }
-
-        public IEnumerable<KeyboardActionPool> Linear { get; }
-        public override IEnumerable<KeyboardActionPool> Actions => Linear;
     }
 }

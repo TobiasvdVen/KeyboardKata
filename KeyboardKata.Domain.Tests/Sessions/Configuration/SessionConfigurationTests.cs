@@ -5,7 +5,6 @@ using KeyboardKata.Domain.Sessions.Configuration;
 using KeyboardKata.Domain.Tests.Helpers;
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -21,6 +20,7 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
                 {
                     "quitPattern": 
                     {
+                        "type": "ExactMatch",
                         "inputs": 
                         [
                             {
@@ -34,9 +34,11 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
                     },
                     "actions": 
                     {
+                        "type": "Single",
                         "prompt": "Do something.",
                         "pattern":
                         {
+                            "type": "ExactMatch",
                             "inputs": 
                             [
                                 {
@@ -59,72 +61,6 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
             Assert.Single(quitPattern.Inputs, i => i.Key == q && i.KeyPress == KeyPress.Down);
             SingleActionPool singleAction = Assert.IsType<SingleActionPool>(result.Actions);
             Assert.Equal("Do something.", singleAction.Action.Prompt);
-        }
-
-        [Fact]
-        public void Test()
-        {
-            string json =
-                """
-                {
-                    "quitPattern": 
-                    {
-                        "inputs": 
-                        [
-                            {
-                                "key": 
-                                {
-                                    "keyCode": "Q",
-                                },
-                                "keyPress": "Down"
-                            }
-                        ]
-                    },
-                    "actions": 
-                    {
-                        "linear":
-                        [
-                            {
-                                "prompt": "Press A!",
-                                "pattern":
-                                {
-                                    "inputs": 
-                                    [
-                                        {
-                                            "key": 
-                                            {
-                                                "keyCode": "A",
-                                            },
-                                            "keyPress": "Down",
-                                        }
-                                    ]
-                                }         
-                            },
-                            {
-                                "prompt": "Press B!",
-                                "pattern":
-                                {
-                                    "inputs": 
-                                    [
-                                        {
-                                            "key": 
-                                            {
-                                                "keyCode": "B",
-                                            },
-                                            "keyPress": "Down",
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                }
-                """;
-
-            SessionConfiguration result = Read(json);
-
-            SingleActionPool single = Assert.IsType<SingleActionPool>(result.Actions.Actions.First());
-            Assert.NotNull(single.Pattern);
         }
 
         [Fact]

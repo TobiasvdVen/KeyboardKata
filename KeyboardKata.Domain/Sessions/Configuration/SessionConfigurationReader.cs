@@ -1,4 +1,7 @@
-﻿using KeyboardKata.Domain.Extensions.Nullability;
+﻿using KeyboardKata.Domain.Actions.Pools;
+using KeyboardKata.Domain.Extensions.Json;
+using KeyboardKata.Domain.Extensions.Nullability;
+using KeyboardKata.Domain.InputMatching;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions.Configuration.Json;
 using System.Text.Json;
@@ -51,8 +54,23 @@ namespace KeyboardKata.Domain.Sessions.Configuration
 
             options.Converters.Add(new JsonStringEnumConverter());
             options.Converters.Add(new KeyJsonConverter(_keyCodeMapper));
-            options.Converters.Add(new KeyboardActionPoolJsonConverter());
-            options.Converters.Add(new PatternJsonConverter());
+
+            TypeDiscriminatorBuilder<IPattern> patternDiscriminator = new()
+            {
+                DefaultMutator = (m) => m.Replace("Pattern", string.Empty)
+            };
+
+            patternDiscriminator.Register(typeof(ExactMatchPattern));
+
+            TypeDiscriminatorBuilder<KeyboardActionPool> poolDiscriminator = new()
+            {
+                DefaultMutator = (m) => m.Replace("ActionPool", string.Empty)
+            };
+
+            poolDiscriminator.Register(typeof(SingleActionPool));
+
+            options.Converters.Add(patternDiscriminator.BuildConverter());
+            options.Converters.Add(poolDiscriminator.BuildConverter());
 
             options.AddContext<SessionConfigurationJsonContext>();
 

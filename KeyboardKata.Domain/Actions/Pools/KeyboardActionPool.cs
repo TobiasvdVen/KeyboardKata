@@ -2,12 +2,13 @@
 {
     public abstract record KeyboardActionPool
     {
-        protected KeyboardActionPool(int? repeats)
+        protected KeyboardActionPool(IEnumerable<KeyboardActionPool> actions, int? repeats)
         {
+            Actions = actions;
             Repeats = repeats;
         }
 
-        public abstract IEnumerable<KeyboardActionPool> Actions { get; }
+        public IEnumerable<KeyboardActionPool> Actions { get; }
         public int? Repeats { get; }
     }
 }
