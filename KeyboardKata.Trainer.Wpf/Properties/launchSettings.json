@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KeyboardKata.Trainer.Wpf": {
+      "commandName": "Project",
+      "commandLineArgs": "--Session ExampleSession.kata"
+    }
+  }
+}

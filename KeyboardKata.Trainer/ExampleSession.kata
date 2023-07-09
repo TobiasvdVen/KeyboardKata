@@ -1,0 +1,49 @@
+﻿{
+  "quitPattern": {
+    "type": "ExactMatch",
+    "inputs": [
+      {
+        "key": {
+          "keyCode": "Q"
+        },
+        "keyPress": "Down"
+      }
+    ]
+  },
+  "actions": {
+    "type": "Linear",
+    "actions": [
+      {
+        "type": "Single",
+        "prompt": "Press A.",
+        "pattern": {
+          "type": "ExactMatch",
+          "inputs": [
+            {
+              "key": {
+                "keyCode": "A"
+              },
+              "keyPress": "Down"
+            }
+          ]
+        }
+      },
+      {
+        "type": "Single",
+        "prompt": "Press H.",
+        "pattern": {
+          "type": "ExactMatch",
+          "inputs": [
+            {
+              "key": {
+                "keyCode": "H"
+              },
+              "keyPress": "Down"
+            }
+          ]
+        }
+      }
+    ]
+
+  }
+}

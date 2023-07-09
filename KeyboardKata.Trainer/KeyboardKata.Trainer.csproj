@@ -15,4 +15,10 @@
         <ProjectReference Condition="'$(TargetFramework)' == 'net7.0-windows'" Include="..\KeyboardKata.Windows\KeyboardKata.Windows.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="ExampleSession.kata">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

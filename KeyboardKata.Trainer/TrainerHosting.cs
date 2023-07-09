@@ -7,8 +7,6 @@ using KeyboardKata.Domain.Actions;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
 using KeyboardKata.Domain.Sessions.Configuration;
-using KeyboardKata.Domain.Actions.Pools;
-using KeyboardKata.Domain.InputMatching;
 using Microsoft.Extensions.Configuration;
 
 #if WINDOWS
@@ -59,35 +57,15 @@ namespace KeyboardKata.Trainer
 
         public static SessionConfiguration LoadSessionConfiguration(IConfiguration appConfiguration)
         {
-            string configPath = appConfiguration["config"] ?? throw new ArgumentException("Context configuration did not contain a path to a trainer session config!");
+            string configPath = appConfiguration["Session"] ?? throw new ArgumentException("Context configuration did not contain a path to a trainer session config!");
 
             using FileStream configContents = new(configPath, FileMode.Open, FileAccess.Read);
-
 
 #if WINDOWS
             WindowsKeyCodeMapper windowsKeyCodeMapper = new();
             SessionConfigurationReader configurationReader = new(windowsKeyCodeMapper);
 
-            configurationReader.Read(configContents);
-
-            SessionConfiguration defaultSettings = new(
-                quitPattern: new ExactMatchPattern(
-                    new Input[] { new Input(windowsKeyCodeMapper.Key(WindowsInput.Events.KeyCode.Q), KeyPress.Down) }),
-
-                new LinearActionPool(new SingleActionPool[]
-                {
-                    new SingleActionPool("Type the letter \"C\"!", new ExactMatchPattern(new List<Input>()
-                    {
-                        new Input(windowsKeyCodeMapper.Key("C"), KeyPress.Down)
-                    }), repeats: 0),
-                    new SingleActionPool("Type the letter \"K\"!", new ExactMatchPattern(new List<Input>()
-                    {
-                        new Input(windowsKeyCodeMapper.Key("K"), KeyPress.Down)
-                    }), repeats: 0)
-                }, repeats: 0)
-            );
-
-            return defaultSettings;
+            return configurationReader.Read(configContents);
 #else
             throw new PlatformNotSupportedException();
 #endif
