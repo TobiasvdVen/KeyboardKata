@@ -25,4 +25,10 @@
     <ProjectReference Include="..\KeyboardKata.Domain\KeyboardKata.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Sessions\Configuration\Resources\ExampleSession.kata">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

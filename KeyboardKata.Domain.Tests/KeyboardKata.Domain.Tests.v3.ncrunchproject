@@ -1,0 +1,7 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <AdditionalFilesToIncludeForProject>
+      <Value>Sessions\Configuration\Resources\**.*</Value>
+    </AdditionalFilesToIncludeForProject>
+  </Settings>
+</ProjectConfiguration>

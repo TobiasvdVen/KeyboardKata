@@ -68,6 +68,7 @@ namespace KeyboardKata.Domain.Sessions.Configuration
             };
 
             poolDiscriminator.Register(typeof(SingleActionPool));
+            poolDiscriminator.Register(typeof(LinearActionPool));
 
             options.Converters.Add(patternDiscriminator.BuildConverter());
             options.Converters.Add(poolDiscriminator.BuildConverter());

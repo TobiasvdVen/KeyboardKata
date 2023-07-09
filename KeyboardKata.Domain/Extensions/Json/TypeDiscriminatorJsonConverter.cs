@@ -52,7 +52,7 @@ namespace KeyboardKata.Domain.Extensions.Json
 
             if (!_discriminatorMap.CanResolve(discriminator))
             {
-                throw new JsonException($"Unable to resolve {discriminator} when deserializing type {typeToConvert.Name}.");
+                throw new JsonException($"Unable to resolve discriminator \"{discriminator}\" when deserializing type: {typeToConvert.Name}.");
             }
 
             Type type = _discriminatorMap.ResolveType(discriminator);

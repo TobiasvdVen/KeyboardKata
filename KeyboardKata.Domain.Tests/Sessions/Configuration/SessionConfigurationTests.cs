@@ -5,6 +5,7 @@ using KeyboardKata.Domain.Sessions.Configuration;
 using KeyboardKata.Domain.Tests.Helpers;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using Xunit;
 
@@ -18,39 +19,32 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
             string configuration =
                 """
                 {
-                    "quitPattern": 
-                    {
-                        "type": "ExactMatch",
-                        "inputs": 
-                        [
-                            {
-                                "key": 
-                                {
-                                    "keyCode": "Q",
-                                },
-                                "keyPress": "Down"
-                            }
-                        ]
-                    },
-                    "actions": 
-                    {
-                        "type": "Single",
-                        "prompt": "Do something.",
-                        "pattern":
+                  "quitPattern": {
+                    "type": "ExactMatch",
+                    "inputs": [
+                      {
+                        "key": {
+                          "keyCode": "Q"
+                        },
+                        "keyPress": "Down"
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "type": "Single",
+                    "prompt": "Do something.",
+                    "pattern": {
+                      "type": "ExactMatch",
+                      "inputs": [
                         {
-                            "type": "ExactMatch",
-                            "inputs": 
-                            [
-                                {
-                                    "key": 
-                                    {
-                                        "keyCode": "A",
-                                    },
-                                    "keyPress": "Down",
-                                }
-                            ]
+                          "key": {
+                            "keyCode": "A"
+                          },
+                          "keyPress": "Down"
                         }
+                      ]
                     }
+                  }
                 }
                 """;
 
@@ -94,6 +88,24 @@ namespace KeyboardKata.Domain.Tests.Sessions.Configuration
                 """;
 
             Assert.ThrowsAny<Exception>(() => Read(configuration));
+        }
+
+        [Fact]
+        public void Example()
+        {
+            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("KeyboardKata.Domain.Tests.Sessions.Configuration.Resources.ExampleSession.kata")!;
+
+            SessionConfigurationReader reader = new(new TestKeyCodeMapper());
+            SessionConfiguration result = reader.Read(stream);
+        }
+
+        [Fact]
+        public void Example2()
+        {
+            using FileStream stream = File.Open("F:\\Projects\\KeyboardKata\\KeyboardKata.Trainer\\ExampleSession.kata", FileMode.Open, FileAccess.Read);
+
+            SessionConfigurationReader reader = new(new TestKeyCodeMapper());
+            SessionConfiguration result = reader.Read(stream);
         }
 
         private SessionConfiguration Read(string json)
