@@ -1,17 +1,14 @@
 ﻿using KeyboardKata.Domain;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using KeyboardKata.Domain.Actions;
+using KeyboardKata.Domain.InputDetection.SharpHook;
 using KeyboardKata.Domain.InputProcessing;
 using KeyboardKata.Domain.Sessions;
 using KeyboardKata.Domain.Sessions.Configuration;
 using Microsoft.Extensions.Configuration;
-
-#if WINDOWS
-using KeyboardKata.Windows;
-#endif
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace KeyboardKata.Trainer
 {
@@ -61,14 +58,10 @@ namespace KeyboardKata.Trainer
 
             using FileStream configContents = new(configPath, FileMode.Open, FileAccess.Read);
 
-#if WINDOWS
-            WindowsKeyCodeMapper windowsKeyCodeMapper = new();
-            SessionConfigurationReader configurationReader = new(windowsKeyCodeMapper);
+            SharpHookKeyCodeMapper keyCodeMapper = new();
+            SessionConfigurationReader configurationReader = new(keyCodeMapper);
 
             return configurationReader.Read(configContents);
-#else
-            throw new PlatformNotSupportedException();
-#endif
         }
 
         private static IServiceCollection RegisterKeyboardKataTrainerServices<TKeyboardKata>(this IServiceCollection services, SessionConfiguration sessionConfiguration) where TKeyboardKata : class, IKeyboardKata
@@ -88,14 +81,11 @@ namespace KeyboardKata.Trainer
 
             services.AddHostedService<KeyboardKataTrainerService>();
 
-#if WINDOWS
-            services.AddHostedService<WindowsInputService>();
+            services.AddHostedService<SharpHookInputService>();
 
-            services.AddTransient<IKeyCodeMapper, WindowsKeyCodeMapper>();
-            services.AddSingleton<WindowsInputDelegator>();
-#else
-            throw new PlatformNotSupportedException();
-#endif
+            services.AddTransient<IKeyCodeMapper, SharpHookKeyCodeMapper>();
+            services.AddTransient<SharpHookKeyCodeMapper>();
+            services.AddSingleton<SharpHookInputDelegator>();
 
             return services;
         }
