@@ -41,5 +41,10 @@ namespace KeyboardKata.Domain.InputDetection.SharpHook
         {
             return Key((int)keyCode);
         }
+
+        public KeyCode KeyCode(Key key)
+        {
+            return (KeyCode)key.KeyCode;
+        }
     }
 }

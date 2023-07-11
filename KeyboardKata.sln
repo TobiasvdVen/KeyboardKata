@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trainer", "Trainer", "{0BEE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.App.ImGui.Windows", "KeyboardKata.App.ImGui.Windows\KeyboardKata.App.ImGui.Windows.csproj", "{520C13B7-75E4-4877-827D-05D2BF093834}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Tests", "KeyboardKata.Tests\KeyboardKata.Tests.csproj", "{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,10 @@ Global
 		{520C13B7-75E4-4877-827D-05D2BF093834}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{520C13B7-75E4-4877-827D-05D2BF093834}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{520C13B7-75E4-4877-827D-05D2BF093834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
