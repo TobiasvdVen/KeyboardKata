@@ -36,7 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trainer", "Trainer", "{0BEE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.App.ImGui.Windows", "KeyboardKata.App.ImGui.Windows\KeyboardKata.App.ImGui.Windows.csproj", "{520C13B7-75E4-4877-827D-05D2BF093834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.Tests", "KeyboardKata.Tests\KeyboardKata.Tests.csproj", "{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardKata.Tests", "KeyboardKata.Tests\KeyboardKata.Tests.csproj", "{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardKata.App.Tests", "KeyboardKata.App.Tests\KeyboardKata.App.Tests.csproj", "{9206C65A-4655-4653-86F3-00ADA0535BD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89BDD37E-8B7F-4D90-9D15-CEB1130AF26A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9206C65A-4655-4653-86F3-00ADA0535BD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9206C65A-4655-4653-86F3-00ADA0535BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9206C65A-4655-4653-86F3-00ADA0535BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9206C65A-4655-4653-86F3-00ADA0535BD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{A1BEC6E6-F966-4023-A4CE-E50AF4F7F73B} = {0BEE30B5-6115-4018-92B0-2501A5D059C6}
 		{60081AA6-9E3C-438F-90F7-7411BB9AB207} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
 		{520C13B7-75E4-4877-827D-05D2BF093834} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
+		{9206C65A-4655-4653-86F3-00ADA0535BD5} = {1DE957F4-3B34-490B-B22B-2C1E5D6C8729}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66C4E67D-4FBE-4687-92C0-807078ABA3C8}
