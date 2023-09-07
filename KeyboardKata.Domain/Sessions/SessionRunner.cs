@@ -1,39 +1,28 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using KeyboardKata.Domain.Sessions;
-
-namespace KeyboardKata.App.ViewModels
+﻿namespace KeyboardKata.Domain.Sessions
 {
-    public partial class MainViewModel : ObservableObject
+    public class SessionRunner
     {
         private readonly ITrainerSession _trainerSession;
 
-        [ObservableProperty]
-        private bool _trainerActive;
-
-        [ObservableProperty]
-        private SessionResult? _sessionResult;
-
-        public MainViewModel(ITrainerSession trainerSession)
+        public SessionRunner(ITrainerSession trainerSession)
         {
             _trainerSession = trainerSession;
             _trainerSession.Ended += TrainerSession_Ended;
         }
 
-        [RelayCommand]
+        public bool SessionRunning => _trainerSession.Active;
+        public SessionResult? SessionResult { get; private set; }
+
         public void StartTrainer()
         {
             _trainerSession.Start();
-            TrainerActive = true;
         }
 
-        [RelayCommand]
         public void StopTrainer()
         {
             _trainerSession.End();
         }
 
-        [RelayCommand]
         public void Reset()
         {
             SessionResult = null;
@@ -41,7 +30,6 @@ namespace KeyboardKata.App.ViewModels
 
         private void TrainerSession_Ended(SessionResult? result)
         {
-            TrainerActive = false;
             SessionResult = result;
         }
     }

@@ -1,20 +1,28 @@
 ﻿using ImGuiNET;
-using KeyboardKata.App.ViewModels;
+using KeyboardKata.App.ImGui.Views;
 using System.Numerics;
 using Veldrid;
 using Veldrid.Sdl2;
 using Veldrid.StartupUtilities;
-using Gui = ImGuiNET.ImGui;
+using static ImGuiNET.ImGui;
 
 namespace KeyboardKata.App.ImGui
 {
-    public class ImGuiService
+    public class ImGuiService : IImGuiViewHolder, IAppVisibility
     {
-        private readonly MainViewModel _mainViewModel;
+        private Sdl2Window? _window;
 
-        public ImGuiService(MainViewModel mainViewModel)
+        public ImGuiView? View { get; set; }
+        public bool Visible
         {
-            _mainViewModel = mainViewModel;
+            get => _window?.Visible ?? false;
+            set
+            {
+                if (_window is not null)
+                {
+                    _window.Visible = value;
+                }
+            }
         }
 
         public void Run()
@@ -28,61 +36,40 @@ namespace KeyboardKata.App.ImGui
                 WindowTitle = "Keyboard Kata"
             };
 
-            Sdl2Window window = VeldridStartup.CreateWindow(windowInfo);
-            using GraphicsDevice graphicsDevice = VeldridStartup.CreateGraphicsDevice(window);
+            _window = VeldridStartup.CreateWindow(windowInfo);
+            using GraphicsDevice graphicsDevice = VeldridStartup.CreateGraphicsDevice(_window);
 
             using CommandList commands = graphicsDevice.ResourceFactory.CreateCommandList();
 
             using ImGuiRenderer imGuiRenderer = new(
                 graphicsDevice,
                 graphicsDevice.MainSwapchain.Framebuffer.OutputDescription,
-                window.Width,
-                window.Height);
+                _window.Width,
+                _window.Height);
 
-            window.Resized += () =>
+            _window.Resized += () =>
             {
-                imGuiRenderer.WindowResized(window.Width, window.Height);
-                graphicsDevice.MainSwapchain.Resize((uint)window.Width, (uint)window.Height);
+                imGuiRenderer.WindowResized(_window.Width, _window.Height);
+                graphicsDevice.MainSwapchain.Resize((uint)_window.Width, (uint)_window.Height);
             };
 
-            while (window.Exists)
+            while (_window.Exists)
             {
-                if (_mainViewModel.TrainerActive)
+                if (Visible)
                 {
-                    window.Visible = false;
-                }
-                else
-                {
-                    window.Visible = true;
-
-                    InputSnapshot snapshot = window.PumpEvents();
+                    InputSnapshot snapshot = _window.PumpEvents();
                     imGuiRenderer.Update(1.0f / 60, snapshot);
-                    Gui.BeginMainMenuBar();
+                    BeginMainMenuBar();
 
-                    Gui.SetNextWindowPos(Vector2.Zero);
-                    Gui.SetNextWindowSize(new Vector2(800, 600));
-                    Gui.Begin(" ", ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
+                    SetNextWindowPos(Vector2.Zero);
+                    SetNextWindowSize(new Vector2(800, 600));
+                    Begin(" ", ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoTitleBar);
 
-                    if (_mainViewModel.SessionResult is null)
-                    {
-                        if (Gui.Button("Start"))
-                        {
-                            _mainViewModel.StartTrainer();
-                        }
-                    }
-                    else
-                    {
-                        Gui.Text($"You made {_mainViewModel.SessionResult.Mistakes} mistakes!");
+                    View?.Render();
 
-                        if (Gui.Button("Ok"))
-                        {
-                            _mainViewModel.Reset();
-                        }
-                    }
+                    End();
 
-                    Gui.End();
-
-                    Gui.EndMainMenuBar();
+                    EndMainMenuBar();
 
                     commands.Begin();
                     commands.SetFramebuffer(graphicsDevice.MainSwapchain.Framebuffer);
@@ -97,7 +84,7 @@ namespace KeyboardKata.App.ImGui
                 }
             }
 
-            Gui.DestroyContext();
+            DestroyContext();
         }
     }
 }

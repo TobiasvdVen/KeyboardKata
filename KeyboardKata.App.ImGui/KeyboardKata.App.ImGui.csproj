@@ -17,8 +17,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\KeyboardKata.App.ViewModels\KeyboardKata.App.ViewModels.csproj" />
 	  <ProjectReference Include="..\KeyboardKata.App\KeyboardKata.App.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Commands\" />
 	</ItemGroup>
 	
 </Project>
