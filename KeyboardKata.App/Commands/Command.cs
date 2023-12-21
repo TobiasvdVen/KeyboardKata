@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace KeyboardKata.App.Commands
 {
     public record Command
     {
-        private readonly Func<Task> _action;
+        private readonly Action _action;
 
-        public Command(string identifier, Func<Task> action)
+        public Command(string identifier, Action action)
         {
             Identifier = identifier;
             _action = action;
@@ -15,9 +14,9 @@ namespace KeyboardKata.App.Commands
 
         public string Identifier { get; }
 
-        public Task Execute()
+        public void Execute()
         {
-            return _action();
+            _action();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using KeyboardKata.App.Commands;
 using KeyboardKata.Domain.InputMatching;
 using System;
+using System.Threading.Tasks;
 
 namespace KeyboardKata.App.Shortcuts
 {
-    public record ShortcutCommand : Command
+    public record AsyncShortcutCommand : AsyncCommand
     {
-        public ShortcutCommand(string identifier, Action action, IPattern shortcut) : base(identifier, action)
+        public AsyncShortcutCommand(string identifier, Func<Task> action, IPattern shortcut) : base(identifier, action)
         {
             Shortcut = shortcut;
         }

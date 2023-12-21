@@ -13,18 +13,23 @@ namespace KeyboardKata.App
         {
             hostBuilder.ConfigureServices((context, services) =>
             {
-                services.AddSingleton<MainViewModel>();
-
-                services.AddSingleton<ITrainerSession>(s =>
-                {
-                    IConfiguration configuration = s.GetRequiredService<IConfiguration>();
-                    string trainerPath = configuration["AppSettings:TrainerPath"] ?? throw new Exception("Trainer path not configured in AppSettings:TrainerPath!");
-
-                    return new ProcessTrainerSession(trainerPath);
-                });
+                ConfigureServices(services);
             });
 
             return hostBuilder;
+        }
+
+        public static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<ITrainerSession>(s =>
+            {
+                IConfiguration configuration = s.GetRequiredService<IConfiguration>();
+                string trainerPath = configuration["AppSettings:TrainerPath"] ?? throw new Exception("Trainer path not configured in AppSettings:TrainerPath!");
+
+                return new ProcessTrainerSession(trainerPath);
+            });
         }
     }
 }

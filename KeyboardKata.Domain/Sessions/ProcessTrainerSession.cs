@@ -43,6 +43,7 @@ namespace KeyboardKata.Domain.Sessions
             if (_process is not null)
             {
                 _process.Exited -= Process_Exited;
+                _process.Dispose();
                 _process = null;
 
                 Ended?.Invoke(_result);

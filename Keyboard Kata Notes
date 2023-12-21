@@ -1,0 +1,213 @@
+Keyboard Kata Notes
+
+Sequence
+	Input[]
+	Order-dependent or not
+	Sequence[]
+		A sequence of sequences, for parts that might be a sequence of order-independent inputs, followed by input(s) that need to come after
+
+SequenceEvaluator
+	Result Check(Sequence, Input[])
+		Takes in a range of inputs and returns whether these match a sequence, don't match YET but could, or cannot match
+
+Input
+	Key down, an input can be a key down event
+	Key up, or a key up event
+	Input[], or an input can represent a number of inputs that are all valid
+	Input[], or maybe a number of inputs that must be "simultaneous"?
+
+IInputSource
+	Somehow reads inputs from OS and raises an event for each distinct input
+
+KeyboardAction
+	Sequence DislaySequence; // The sequence show on screen to be pressed
+	Sequence InternalSequence; // The sequence that needs to actually be pressed to pass
+	string Prompt;
+
+Session
+	KeyboardAction[] actions; // Actions that can be prompted during a session
+
+
+Sequence[] MakeSafe(Sequence[]) // Convert sequences to safe equivalents somehow
+
+
+// Somehow convert individual keys in the defy to sequences, that can then be made safe, then be converted back to a Defy layout
+// This will need to return the sequences in a way that it's still possible to tell which were part of a macro or superkey, so they can be set properly when converted back to a Defy layout
+Sequence[] FromDefy(DefyLayout) 
+	Simple key presses (A, &, Enter)
+	Key presses with modifiers (Shift+A, Ctrl+Shift+V)
+	Macros (Whatever sequence of presses the macro is, turn it into a Sequence)
+	Superkeys (Whatever possible outputs there are from the different superkey triggers, turn each of those into a Sequence)
+
+A different keyboard?
+	Would need to implement:
+
+		ICustomKeyboardLayoutToIntermediateThing
+		IMakeIntermediateThingSequencesSafe
+		IIntermediateThingToCustomKeyboardLayout
+		IIntermediateThingToFlatSequencesForKata
+
+Stuff the view would need to implement:
+
+	IInputSource
+		Events when inputs happen for the domain to handle
+
+	IKeyboardKata
+		ShowKeyboardAction(KeyboardAction) // Implement how to display a KeyboardAction prompt and display sequence
+		ShowProgress() // Called when user progresses a sequence and could still complete it correctly
+		ShowSuccess() // Called when user inputs action correctly
+		ShowFailure() // Called when user fails the inputs entirely
+
+Does auto-loading programmable keyboard layout and flashing back safe layout, and then restoring original programmed layout work too?
+	IDetectConnectedKeyboardAndCallHandlerForIt (ICustomKeyboardLayoutToIntermediateThing)
+	IFlashConnectedKeyboardFromIntermediateThing
+	
+
+
+Event -> Input
+	Key (up or down)
+
+InputProcessor
+	Process(Input)
+
+
+App flow
+	1 Start
+	2 Load map of unsafe sequences to safe sequences
+	3 Select sequence and display for user
+	4 User presses input
+		- Sequence completes
+		- Sequence progresses
+		- Sequence fails
+	5 Loop back to 3
+	(6) On console, or might as well also on WPF I guess, user enters exit input somehow
+		(7) Exit
+
+
+	Test()
+		Action action = Stubs(ctrl, shift, a)
+		session.ChangeAction(action)
+
+		DoInputs(session, action.InputSequence)
+
+		_kata.Verify(Success, Once)
+
+
+KeyboardKata.Domain
+
+KeyboardKata.Trainer.Cli
+KeyboardKata.Trainer.Wpf
+	Implementation of IKeyboardKata to display in either console or a windows overlay
+
+KeyboardKata.Trainer
+	Hosting implementation for trainer program
+
+KeyboardKata.App
+	Hosting implementation for configuration/startup program (which will start the trainer)
+
+KeyboardKata.Windows
+	Input and key mapping for Windows
+
+KeyboardKata.App.Maui
+	Maui implementation of keyboard kata configurator app
+
+TODO:
+
+	- Shortcut + keypress matching
+	- Keyboard shortcuts to control App
+	- Acceptance tests
+		- Maybe move to SharpHook? (Can drop "KeyboardKata.Windows", though not "ImGui.Windows" that's for the window styling)
+	- Actually think about the general flow of processing inputs and prompting
+	- Style screen overlay and prompts a bit betteraoss
+
+Test cases?
+
+	Shortcut handling
+		ShortcutProcessor?
+	Given: Pattern to match
+	When: Sequence of inputs
+	Then: Shortcut command execute
+
+	Input preview
+		SessionProcessor?
+	Given: Pattern to match
+	When: Sequence of inputs
+	Then: Preview of inputs indicating progress
+
+	Progressing to next prompt
+		SessionProcessor?
+	Given: Pattern to match
+	When: Sequence of inputs
+	Then: Next prompt when inputs fully match pattern
+
+
+	PatternMatcher : IInputProcessor
+		(IPatternProcessor)
+
+		void Process(Input input)
+
+
+	IPatternProcessor
+
+		void Process(Pattern, Match (None, Partial, Full, Polluted?))
+
+	ShortcutProcessor : IPatternProcessor
+
+		void Process(Pattern, Match)
+		{
+			if (match == Full)
+			{
+				shortcuts.Where(s => s.Pattern == pattern).Execute();
+			}
+		}
+
+	PreviewPatternProcessor : IPatternProcessor
+
+		void Process(Pattern, Match)
+		{
+
+		}
+
+Session selection
+
+	List of available sessions view
+		(Sessions[], SessionSelection)
+
+		if (ShortcutCommandButton(SelectSessionCommand))
+			SessionSelectionInputContext.Open()
+
+		foreach (session in _sessions)
+		{
+			if (_selection.Selected == session)
+			{
+				TextFieldSpecial(session.Name)
+			}
+			else
+			{
+				TextField(session.Name)
+			}
+		}
+
+	SessionSelectionInputContext
+		(SessionSelection)
+		string whateverTypedSoFar
+
+		OnEnter()
+		{
+			_sessionSelection.SelectByName(whateverTypedSoFar)
+			Close();
+		}
+
+	SessionSelection
+		(Sessions[])
+
+		Session? Selected;
+
+		SelectByName(string)
+		{
+			Selected = _sessions.Find(name);
+		}
+
+	SelectSessionCommand
+		Do nothing...
+

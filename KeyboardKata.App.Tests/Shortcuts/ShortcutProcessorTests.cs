@@ -18,7 +18,7 @@ namespace KeyboardKata.App.Tests.Shortcuts
 
             IPattern pattern = Stubs.Pattern(Stubs.Down("S"));
 
-            ShortcutProcessor shortcutProcessor = new(new ShortcutCommand("TestCommand", action.Object, pattern));
+            ShortcutProcessor shortcutProcessor = new(() => new AsyncShortcutCommand("TestCommand", action.Object, pattern));
             InputProcessor inputProcessor = new(shortcutProcessor, pattern);
 
             inputProcessor.Process(Stubs.Down("S"));

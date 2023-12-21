@@ -2,7 +2,7 @@
 
 namespace KeyboardKata.Domain.Tests.Helpers
 {
-    internal class TestKeyCodeMapper : IKeyCodeMapper
+    public class TestKeyCodeMapper : IKeyCodeMapper
     {
         public string Descriptor(int keyCode)
         {

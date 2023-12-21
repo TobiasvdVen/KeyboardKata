@@ -6,15 +6,9 @@ namespace KeyboardKata.App.ImGui
     {
         private readonly ShortcutCommand _command;
 
-        private readonly SemaphoreSlim _semaphore;
-
-        private Task? _task;
-
         public ShortcutCommandButton(ShortcutCommand command)
         {
             _command = command;
-
-            _semaphore = new SemaphoreSlim(1);
         }
 
         public bool Button()
@@ -24,29 +18,14 @@ namespace KeyboardKata.App.ImGui
 
         public bool Button(string overrideName)
         {
-            _semaphore.Wait();
+            bool clicked = ImGuiNET.ImGui.Button(overrideName);
 
-            try
+            if (clicked)
             {
-                if (_task is not null)
-                {
-                    ImGuiNET.ImGui.Button("...");
-                    return false;
-                }
-
-                bool clicked = ImGuiNET.ImGui.Button(overrideName);
-
-                if (clicked)
-                {
-                    _task = _command.Execute();
-                }
-
-                return clicked;
+                _command.Execute();
             }
-            finally
-            {
-                _semaphore.Release();
-            }
+
+            return clicked;
         }
     }
 }
